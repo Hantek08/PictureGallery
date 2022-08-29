@@ -3,22 +3,62 @@ body {
 	margin: 0;
 	padding: 0;
   box-sizing: border-box;
+  background-image: linear-gradient(90deg, #33b7e2, #5e62b0, #dc307c);
+
 }
 
-.FlexWrap {
-  background-color: indigo;
+.mainPageHeader {
+  margin-left: 1rem;
+  color: gold;
+}
+
+.FlexWrap:not(.top-left){
+  position: relative;
+  border: 5px solid;
 	font-family: 'Oswald', sans-serif;
-  height: 100%;
-  width: 100%;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 20vh;
   
-  display: flex;
+  display: -ms-inline-grid;
+  grid-template-columns: repeat(3, 1fr);
+
   flex-wrap: wrap;          /* test with wrap nowrap */
   align-items: center;      /* alignment along cross axis - center flex-start flex-end */
   justify-content:space-evenly;  /* alignment along main axis - center flex-start flex-end space-evenly space-between space-around */
 }
 
 .FlexItem {
-  width: 200px;            /* fixed size will demonstrate the wrap */
+	font-family: 'Oswald', sans-serif;
+  display: inline;
+}
+
+.FlexItem img{
+  border: 5px solid gold;
+  margin-left: 20px;
+  margin-top: 10px;
+  width: 30vw;            /* fixed size will demonstrate the wrap */
+  height: 30vh;
+  
+}
+#top-left{
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  border: 1px solid;
+}
+
+
+.FlexItem img:hover{
+  border: 5px solid rebeccapurple;
+}
+
+.FlexItem #top-left {
+  visibility: hidden;
+}
+
+.FlexItem:hover #top-left {
+  visibility: visible;
 }
 
 img {
@@ -26,3 +66,8 @@ img {
   height: 100%;
   object-fit: cover;
 }
+
+
+
+
+
