@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <title>appPictureLibrary</title>
     <meta name="viewport" content="width=device-width" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/appPictureLibrary.css" />
   </head>
 
@@ -14,15 +15,16 @@
         <div class="column">
           <img
             src="./app-data/library/pictures/album-header/A Galactic Spectacle_4862916839_o~small.jpg"
-            alt="Avatar"
+            alt="This is one image"
             class="image"
+            id="MyImage"
           />
           <div class="overlay">Album Header</div>
         </div>
         <div class="column">
           <img
             src="./app-data/library/pictures/album-header/GSFC_20171208_Archive_e000383~small.jpg"
-            alt="Avatar"
+            alt="This is the name of another image"
             class="image"
           />
           <div class="overlay">Album Header</div>
@@ -104,6 +106,37 @@
           <div class="overlay">Album Header</div>
         </div>
       </div>
+<div class="modal fade" id="gallery-popup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <h1 class="pictureName">hej</h1>
+      <div class="modal-header">
+        <!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img src="./app-data/library/pictures/album-header/GSFC_20171208_Archive_e002151~small.jpg" class="modal-img" alt="Modal Image">
+      </div>
+    </div>
+  </div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script type="text/javascript">
+      document.addEventListener("click",function(e){
+        if(e.target.classList.contains("image")){
+          // var h1ele = document.getElementById("pictureName");
+          const altName = e.target.getAttribute("alt")
+          const src = e.target.getAttribute("src");
+          document.querySelector(".modal-img").src = src;
+          document.querySelector(".pictureName").textContent = altName;
+          const myModal = new bootstrap.Modal(document.getElementById('gallery-popup'));
+          myModal.show();
+        }
+      })
+    </script>
+
 
       <!-- Below is being rendered in the js
     <div class="FlexItem">

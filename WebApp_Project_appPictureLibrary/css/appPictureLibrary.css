@@ -8,12 +8,6 @@ body {
 }
 
 .row {
-  /* display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: left;
-  padding: 0 4px; */
-  
   justify-content: center;
 margin-bottom: 2%;
    display: flex;
@@ -22,36 +16,18 @@ margin-bottom: 2%;
 
 }
 
-
 #firstRow {
     margin-top: 80px;
 }
 
-/* Create four equal columns that sits next to each other */
 .column {
-  /* margin-right: 2%;
-  margin-left: 2%;
-  flex: 20%;
-  max-width: 20%;
-  position: relative;
-  display: flex; */
-
   position: relative;
   flex: 20%;
   max-width: 20%;
   padding: 0px 8px;
 }
 
-
-
 .column img {
-  /* margin-top: 8px;
-  margin-left: 10px;
-  height: 300px;
-  width: 300px; 
-  border-radius: 2%;
-  display: flex; */
-
   border-radius: 2%;
    margin-top: 8px;
   width: 100%;
@@ -73,8 +49,6 @@ margin-bottom: 2%;
   text-align: center;
   width: 94%;
   border-radius: 1%;
-
-
 }
 
 
@@ -98,7 +72,6 @@ margin-bottom: 2%;
   }
 }
 
-/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {
   .column {
     flex: 100%;
@@ -110,7 +83,7 @@ margin-bottom: 2%;
   }
 
   .overlay {
-    padding: 15px 0;
+    padding: 15px 6px;
   }
 
   .mainPageHeader {
