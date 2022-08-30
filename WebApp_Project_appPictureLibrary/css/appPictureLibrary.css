@@ -8,16 +8,20 @@ body {
 }
 
 .row {
-  display: flex;
+  /* display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: left;
-  position: relative;
-  margin-top: 5px;
-  padding: 2%;
+  padding: 0 4px; */
+  
+  justify-content: center;
+margin-bottom: 2%;
+   display: flex;
+  flex-wrap: wrap;
+  padding: 0 4px;
 
-  border: 2px solid red;
 }
+
 
 #firstRow {
     margin-top: 80px;
@@ -25,41 +29,91 @@ body {
 
 /* Create four equal columns that sits next to each other */
 .column {
-  padding: 4px;
+  /* margin-right: 2%;
+  margin-left: 2%;
   flex: 20%;
-  max-width: 25%;
-  border: 2px solid blue;
+  max-width: 20%;
   position: relative;
+  display: flex; */
+
+  position: relative;
+  flex: 20%;
+  max-width: 20%;
+  padding: 0px 8px;
 }
+
+
 
 .column img {
-  margin-top: 8px;
+  /* margin-top: 8px;
   margin-left: 10px;
   height: 300px;
-  width: 300px;
-  border: 2px solid gold;
-  align-items: center;
+  width: 300px; 
+  border-radius: 2%;
+  display: flex; */
+
+  border-radius: 2%;
+   margin-top: 8px;
+  width: 100%;
+  height: 100%;
 }
 
 
-.overlay {
+ .overlay {
   position: absolute;
-  top: 4%;
-  left: 4%;
+  top: 3%;
+  padding: 10px 0;
   background: rgb(0, 0, 0);
-  background: rgba(0, 0, 0, 0.5); /* Black see-through */
+  background: rgba(0, 0, 0, 0.5); 
   color: #f1f1f1;
   transition: .5s ease;
   opacity:0;
   color: white;
   font-size: 20px;
-  padding: 4% 2% 0% 0%;
-  text-align: left;
-  width: 80%;
+  text-align: center;
+  width: 94%;
+  border-radius: 1%;
 
 
 }
 
+
 .column:hover .overlay {
   opacity: 1;
-}  
+}   
+
+@media screen and (max-width: 800px) {
+  .column {
+    flex: 46%;
+    max-width: 46%;
+    margin-top: 10px;
+  }
+
+  .row {
+    margin: 0;
+  }
+
+  .mainPageHeader {
+    text-align: center;
+  }
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .column {
+    flex: 100%;
+    max-width: 100%;
+    margin-top: 10px;
+
+    justify-content: center;
+    align-items: center;
+  }
+
+  .overlay {
+    padding: 15px 0;
+  }
+
+  .mainPageHeader {
+    text-align: center;
+  }
+}
