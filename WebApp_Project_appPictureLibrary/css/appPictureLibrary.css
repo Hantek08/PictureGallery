@@ -1,73 +1,65 @@
-html,
 body {
-	margin: 0;
-	padding: 0;
-  box-sizing: border-box;
-  background-image: linear-gradient(90deg, #33b7e2, #5e62b0, #dc307c);
+      background-image: linear-gradient(90deg, #33b7e2, #5e62b0, #dc307c);
 
 }
-
 .mainPageHeader {
   margin-left: 1rem;
   color: gold;
 }
 
-.FlexWrap:not(.top-left){
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: left;
   position: relative;
-  border: 5px solid;
-	font-family: 'Oswald', sans-serif;
+  margin-top: 5px;
+  padding: 2%;
+
+  border: 2px solid red;
+}
+
+#firstRow {
+    margin-top: 80px;
+}
+
+/* Create four equal columns that sits next to each other */
+.column {
+  padding: 4px;
+  flex: 20%;
+  max-width: 25%;
+  border: 2px solid blue;
+  position: relative;
+}
+
+.column img {
+  margin-top: 8px;
   margin-left: 10px;
-  margin-right: 10px;
-  margin-top: 20vh;
-  
-  display: -ms-inline-grid;
-  grid-template-columns: repeat(3, 1fr);
-
-  flex-wrap: wrap;          /* test with wrap nowrap */
-  align-items: center;      /* alignment along cross axis - center flex-start flex-end */
-  justify-content:space-evenly;  /* alignment along main axis - center flex-start flex-end space-evenly space-between space-around */
+  height: 300px;
+  width: 300px;
+  border: 2px solid gold;
+  align-items: center;
 }
 
-.FlexItem {
-	font-family: 'Oswald', sans-serif;
-  display: inline;
-}
 
-.FlexItem img{
-  border: 5px solid gold;
-  margin-left: 20px;
-  margin-top: 10px;
-  width: 30vw;            /* fixed size will demonstrate the wrap */
-  height: 30vh;
-  
-}
-#top-left{
+.overlay {
   position: absolute;
-  top: 40px;
-  left: 40px;
-  border: 1px solid;
+  top: 4%;
+  left: 4%;
+  background: rgb(0, 0, 0);
+  background: rgba(0, 0, 0, 0.5); /* Black see-through */
+  color: #f1f1f1;
+  transition: .5s ease;
+  opacity:0;
+  color: white;
+  font-size: 20px;
+  padding: 4% 2% 0% 0%;
+  text-align: left;
+  width: 80%;
+
+
 }
 
-
-.FlexItem img:hover{
-  border: 5px solid rebeccapurple;
-}
-
-.FlexItem #top-left {
-  visibility: hidden;
-}
-
-.FlexItem:hover #top-left {
-  visibility: visible;
-}
-
-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-
-
-
-
+.column:hover .overlay {
+  opacity: 1;
+}  
