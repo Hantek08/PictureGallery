@@ -25,20 +25,32 @@ document.addEventListener('DOMContentLoaded', async () => {
   
   for (const album of library.albums) {
     renderAlbumHeader(album.headerImage, album.path, album.comment, album.title);
-    let elements = document.querySelectorAll(".FlexItem");
-    for (const element of elements) {
-        element.addEventListener("click", function () {
-          if (this.dataset.albumId == album.id) {
-            for (const picture of album.pictures) {
-             renderAlbumGallery(`${this.dataset.albumPath}/${picture.imgLoRes}`, picture.comment, `${this.dataset.albumPath}/${picture.imgHiRes}`, `${this.dataset.albumPath}/${picture.imgLoRes}`, picture.title, picture.id); 
-            }
-          }
-          for (var i = 0; i < elements.length; i++) {
-            elements[i].style.display = "none";
-          }
-        });
-      }
-    }
+  }
+    let FlexWrapElements = document.querySelectorAll(".FlexItem");
+     let FlexTwoElements = document.querySelectorAll(".Flex-two");
+    for (const element of FlexWrapElements) {
+      element.addEventListener("click", function () {
+        if (this.dataset.albumId == element.id) {
+          renderAlbumGallery(`${this.dataset.albumPath}/${picture.imgLoRes}`, picture.comment, `${this.dataset.albumPath}/${picture.imgHiRes}`, `${this.dataset.albumPath}/${picture.imgLoRes}`, picture.title, picture.id); 
+        }
+        for (var i = 0; i < FlexWrapElements.length; i++) {
+          FlexWrapElements[i].style.display = "none";
+        }
+        for (var i = 0; i < FlexTwoElements.length; i++){
+          FlexTwoElements[i].style.display = "flex";
+        }
+        let h2 = document.querySelector(".Gallery-Title");
+        h2.textContent = this.dataset.title;
+        var btn = document.createElement("button");
+        btn.setAttribute("id", "backToMainButton")
+        btn.onclick = function() {
+          backToMainPageClicked();
+        }
+        btn.textContent = "Back";
+        h2.appendChild(btn);
+      });
+    } 
+    
           var modal = document.getElementById("myModal");
           var modalImg = document.getElementById("img01");
           var captionText = document.getElementById("caption");
@@ -58,15 +70,15 @@ document.addEventListener('DOMContentLoaded', async () => {
           albumCollection = {};  
           testAlbumCollection = []; 
 
-          // alert(this.dataset.albumPath);   
           const container = document.querySelector('.Flex-two');
           removeAllChildNodes(container);
           for (const album of library.albums) {
             for (const picture of album.pictures){
               if (album.path === this.dataset.albumPath){
                 renderAlbumGallery(`${this.dataset.albumPath}/${picture.imgLoRes}`, picture.comment, `${this.dataset.albumPath}/${picture.imgHiRes}`, `${this.dataset.albumPath}/${picture.imgLoRes}`, picture.title); 
-                  let h2 = document.querySelector('#Gallery-Title');
-                 h2.textContent = album.title;
+       
+                //  let h2 = document.querySelector('#Gallery-Title');
+                //  h2.textContent = album.title;
               }
             }
           }
@@ -114,9 +126,24 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
          }
        })
+
       });
 
 
+function backToMainPageClicked(){
+     let FlexTwoElements = document.querySelectorAll(".Flex-two");
+     for (var i = 0; i < FlexTwoElements.length; i++) {
+          FlexTwoElements[i].style.display = "none";
+        }
+      document.querySelector("#backToMainButton").remove();
+      document.querySelector(".Gallery-Title").textContent = "";
+
+      let FlexWrapElements = document.querySelectorAll(".FlexItem");
+       for (var i = 0; i < FlexWrapElements.length; i++) {
+          FlexWrapElements[i].style.display = "block";
+        }
+
+}
 
 
 //Render the images
@@ -125,7 +152,8 @@ function renderAlbumHeader(src, tag, comment, title, id) {
   const div = document.createElement('div');
   div.className = `FlexItem`;
   div.dataset.albumPath = tag;
-  div.dataset.albumId = id
+  div.dataset.albumId = id;
+  div.dataset.title = title;
   
   const img = document.createElement('img');
   img.src = src;

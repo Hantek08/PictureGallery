@@ -74,13 +74,13 @@ img {
   margin: 4px;
 }
 
-.backToMainButton{
-  width: 500px;
-  height: 500px;
+#backToMainButton{
   display: flex;
+
+  margin-top: 20px;
 }
 
-#Gallery-Title {
+.Gallery-Title {
   margin-left: 15vw;
   margin-top: 5vh;
   font-weight: bold;
