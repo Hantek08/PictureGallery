@@ -52,6 +52,7 @@ img {
   font-weight: bold;
   color: greenyellow;
   font-size: 2rem;
+  display: block;
 }
 
 .albumTitle {
@@ -73,9 +74,15 @@ img {
   margin: 4px;
 }
 
+.backToMainButton{
+  width: 500px;
+  height: 500px;
+  display: flex;
+}
+
 #Gallery-Title {
   margin-left: 15vw;
-  margin-top: 10vh;
+  margin-top: 5vh;
   font-weight: bold;
   color: greenyellow;
   font-size: 2rem;

@@ -17,12 +17,28 @@ let currentImg = 0;
 document.addEventListener('DOMContentLoaded', async () => {
   
   library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON);  //reading library from JSON on local server 
-  //library = lib.pictureLibraryBrowser.createFromTemplate();  //generating a library template instead of reading JSON
 
-for (const album of library.albums) {
+
+
+  
+  //library = lib.pictureLibraryBrowser.createFromTemplate();  //generating a library template instead of reading JSON
+  
+  for (const album of library.albums) {
     renderAlbumHeader(album.headerImage, album.path, album.comment, album.title);
-}
-      
+    let elements = document.querySelectorAll(".FlexItem");
+    for (const element of elements) {
+        element.addEventListener("click", function () {
+          if (this.dataset.albumId == album.id) {
+            for (const picture of album.pictures) {
+             renderAlbumGallery(`${this.dataset.albumPath}/${picture.imgLoRes}`, picture.comment, `${this.dataset.albumPath}/${picture.imgHiRes}`, `${this.dataset.albumPath}/${picture.imgLoRes}`, picture.title, picture.id); 
+            }
+          }
+          for (var i = 0; i < elements.length; i++) {
+            elements[i].style.display = "none";
+          }
+        });
+      }
+    }
           var modal = document.getElementById("myModal");
           var modalImg = document.getElementById("img01");
           var captionText = document.getElementById("caption");
@@ -98,17 +114,18 @@ for (const album of library.albums) {
             }
          }
        })
-      })
+      });
 
 
 
 
 //Render the images
-function renderAlbumHeader(src, tag, comment, title) {
+function renderAlbumHeader(src, tag, comment, title, id) {
   
   const div = document.createElement('div');
   div.className = `FlexItem`;
   div.dataset.albumPath = tag;
+  div.dataset.albumId = id
   
   const img = document.createElement('img');
   img.src = src;
