@@ -1,0 +1,221 @@
+html,
+body {
+	margin: 0;
+	padding: 0;
+  box-sizing: border-box;
+  background-image: linear-gradient(90deg, #33b7e2, #5e62b0, #dc307c);
+}
+
+.FlexWrap {
+	font-family: 'Oswald', sans-serif;
+    margin: 5vh 15vw;
+
+  display: flex;
+  flex-wrap: wrap;          /* test with wrap nowrap */
+  align-items: flex-start;      /* alignment along cross axis - center flex-start flex-end */
+  justify-content:space-between;  /* alignment along main axis - center flex-start flex-end space-evenly space-between space-around */
+}
+
+
+.FlexItem {
+  width: 200px;            /* fixed size will demonstrate the wrap */
+  height: 200px;  
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    position: relative;
+
+}
+
+.FlexItem-two {
+    width: 200px;            /* fixed size will demonstrate the wrap */
+  height: 200px;  
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    position: relative;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5%;
+  
+}
+
+.albumHeader{
+  margin-left: 15vw;
+  margin-top: 10vh;
+  font-weight: bold;
+  color: greenyellow;
+  font-size: 2rem;
+}
+
+.albumTitle {
+  font-weight: bold;
+}
+
+.Flex-two {
+	font-family: 'Oswald', sans-serif;
+  margin: 5vh 15vw;
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.Flex-two .FlexItem-two {
+  width: 200px;
+  height: 200px;
+  margin: 4px;
+}
+
+#Gallery-Title {
+  margin-left: 15vw;
+  margin-top: 10vh;
+  font-weight: bold;
+  color: greenyellow;
+  font-size: 2rem;
+  visibility: visible;
+}
+
+.FlexItem div{
+    background-color:transparent;
+    top:0;
+    left: 0;
+    opacity: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    position: absolute;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.FlexItem:hover div {
+  opacity: 1;
+  background-color: transparent;
+  transition: all ease-in-out 500ms;
+}
+
+.FlexItem div p {
+  color: white;
+  font-size: 1.5rem;
+}
+
+
+
+.Flex-two .FlexItem-two div {
+    opacity: 1;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    position: absolute;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.Flex-two .FlexItem-two div p{
+  color:  rgba(255, 255, 255, 0.5);
+  font-size: small;
+  background-color: transparent;
+  opacity: 0;
+  margin-bottom: 0;
+}
+
+.Flex-two .FlexItem-two:hover div p{
+  opacity: 1;
+  transition: all ease-in-out 500ms;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 9.5vh; /* Location of the box */
+   overflow: auto;
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+
+  background-color: rgb(174, 174, 174); /* Fallback color */
+  background-color: rgba(210, 210, 210, 0.9); /* Black w/ opacity */
+}
+
+
+/* Modal Content (image) */
+.modal-content {
+  width: 50%;
+  height: 90%;
+  padding: 0 1rem;
+}
+
+/* Caption of Modal Image */
+#caption {
+  display: inline-block;
+  color: rebeccapurple;
+  width: 40vw;
+  position: absolute;
+  margin-left: 50px;
+  justify-content: flex-end;
+  align-items: flex-start;
+  background-color: white;
+  padding: 1rem 1rem;
+  border-radius: 2%;
+  font-weight: bold;
+}
+
+
+/* Add Animation - Zoom in the Modal */
+.modal-content, #caption {
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+
+@keyframes zoom {
+  from {transform:scale(0)}
+  to {transform:scale(1)}
+}
+
+/* The Close Button */
+.close {
+  position: fixed;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+
+.nextButton {
+  width: 500px;
+  height: 500px;
+}
+
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+  .modal-content {
+    width: 100%;
+  }
+}
+
+.pictureTitle {
+  font-size: large;
+  position: absolute;
+  top: 2%;
+  left: 2%;
+}
