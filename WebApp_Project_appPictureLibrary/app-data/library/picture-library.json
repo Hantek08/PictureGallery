@@ -189,7 +189,6 @@
             "title": "Hubble telescope",
             "comment": "All the pictures were taken by this amazing telescope",
             "path": "app-data/library/pictures/hubble-telescope",
-            "rating": 3,
             "headerImage": "app-data/library/pictures/album-header/GSFC_20171208_Archive_e002151~small.jpg",
             "pictures": [
                 {
