@@ -55,7 +55,6 @@ for (const album of library.albums) {
             }
           }
           
-    
           let galleryImg = document.querySelectorAll(".FlexItem-two");
    
           galleryImg.forEach(function(img) {
