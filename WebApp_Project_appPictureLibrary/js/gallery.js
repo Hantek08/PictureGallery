@@ -41,7 +41,6 @@ if (galleryImages) {
                 let imgWidth = this.width;
                 let calcImgToEdge = ((windowWidth - imgWidth) / 2) -80;
 
-
                 let newNextBtn = document.createElement("a");
                 let btnNextText = document.createTextNode("Next");
                 newNextBtn.appendChild(btnNextText);
@@ -57,10 +56,7 @@ if (galleryImages) {
                 newPrevBtn.setAttribute("class", "img-btn-prev");
                 newPrevBtn.setAttribute("onclick", "changeImg(0)");
                newPrevBtn.style.cssText = "left:" + calcImgToEdge + "px;"
-
             }
-
-
         }
     });
 }
@@ -106,5 +102,4 @@ function changeImg(changeDir) {
         let pevBtn = document.querySelector(".img-btn-prev");
         pevBtn.style.cssText = "left: " + calcImgToEdge + "px;";
      }
-
 }
