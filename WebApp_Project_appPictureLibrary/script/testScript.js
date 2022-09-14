@@ -17,9 +17,6 @@ let currentImg = 0;
 document.addEventListener('DOMContentLoaded', async () => {
   
   library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON);  //reading library from JSON on local server 
-
-
-
   
   //library = lib.pictureLibraryBrowser.createFromTemplate();  //generating a library template instead of reading JSON
   
@@ -53,9 +50,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     
           var modal = document.getElementById("myModal");
           var modalImg = document.getElementById("img01");
-          var captionText = document.getElementById("caption");
+          var pictureComment = document.getElementById("caption");
           var picTitle = document.createElement("h2");
           var nextButton = document.createElement("button");
+
+          pictureComment.setAttribute("contenteditable", "true");
+          picTitle.setAttribute("contenteditable", "true");
+
+          
+        //change pictureComment to input form text
+          pictureComment.onclick = function() {
+          console.log("hej");
+        }
+
           nextButton.setAttribute("value", "next");
           nextButton.setAttribute("class", "nextButton")
           picTitle.setAttribute("class", "pictureTitle");
@@ -85,10 +92,11 @@ document.addEventListener('DOMContentLoaded', async () => {
           
           let galleryImg = document.querySelectorAll(".FlexItem-two");
    
+          //Open image modal
           galleryImg.forEach(function(img) {
             img.onclick = function(){
               modal.style.display = "inline-block";
-              captionText.innerHTML = this.dataset.imgComment;
+              pictureComment.innerHTML = this.dataset.imgComment;
               picTitle.innerHTML = this.dataset.pictureTitle;
               modalImg.src = this.dataset.imgResPath;
               
@@ -100,19 +108,21 @@ document.addEventListener('DOMContentLoaded', async () => {
             span.onclick = function() {
               modal.style.display = "none";
               picTitle.textContent = null;
-              captionText.textContent = null;
+              pictureComment.textContent = null;
               currentImg = 2;
             }
           })
 
+
+          //NEXT IMAGE ON BTN CLICK
           nextButton.onclick = function() {
               picTitle.innerHTML = null;
-              captionText.innerHTML = null;
+              pictureComment.innerHTML = null;
             if (currentImg < testAlbumCollection.length){
               
       
               modalImg.src = testAlbumCollection[currentImg].hiResPath;
-              captionText.innerHTML  = testAlbumCollection[currentImg].comment;
+              pictureComment.innerHTML  = testAlbumCollection[currentImg].comment;
               picTitle.innerHTML = testAlbumCollection[currentImg].title;
               currentImg++;
               

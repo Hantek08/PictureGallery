@@ -201,8 +201,9 @@ img {
 
 
 .nextButton {
-  width: 500px;
-  height: 500px;
+height: 20px;
+width: 100px;
+position: absolute;
 }
 
 
