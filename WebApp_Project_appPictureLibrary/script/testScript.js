@@ -18,22 +18,58 @@ document.addEventListener('DOMContentLoaded', async () => {
   
   library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON);  //reading library from JSON on local server 
   
-  //library = lib.pictureLibraryBrowser.createFromTemplate();  //generating a library template instead of reading JSON
-  
-  for (const album of library.albums) {
-    renderAlbumHeader(album.headerImage, album.path, album.comment, album.title);
+if (localStorage.getItem("pictureLibrary") == null) {
+    localStorage.setItem("pictureLibrary", JSON.stringify(library));
   }
-    let FlexWrapElements = document.querySelectorAll(".FlexItem");
-     let FlexTwoElements = document.querySelectorAll(".Flex-two");
-    for (const element of FlexWrapElements) {
+  const libraryFromLocalStorage = localStorage.getItem("pictureLibrary");
+  const parsedLibrary = JSON.parse(libraryFromLocalStorage);
+  const albums = parsedLibrary.albums;
+
+  //library = lib.pictureLibraryBrowser.createFromTemplate();  //generating a library template instead of reading JSON
+  for (
+    let albumIndex = 0;
+    albumIndex < albums.length;
+    albumIndex++
+  ) // for (const album of library.albums)
+  {
+    renderAlbumHeader(
+      albums[albumIndex].headerImage,
+      albums[albumIndex].path,
+      albums[albumIndex].comment,
+      albums[albumIndex].title,
+      albums[albumIndex].id,
+      true,
+      albumIndex
+    );
+    let elements = document.querySelectorAll(".FlexItem");
+    let FlexTwoElements = document.querySelectorAll(".Flex-two");
+
+    for (const element of elements) {
       element.addEventListener("click", function () {
-        if (this.dataset.albumId == element.id) {
-          renderAlbumGallery(`${this.dataset.albumPath}/${picture.imgLoRes}`, picture.comment, `${this.dataset.albumPath}/${picture.imgHiRes}`, `${this.dataset.albumPath}/${picture.imgLoRes}`, picture.title, picture.id); 
+        if (this.dataset.albumId == albums[albumIndex].id) {
+          const pictures = albums[albumIndex].pictures;
+          for (
+            let pictureIndex = 0;
+            pictureIndex < pictures.length;
+            pictureIndex++
+          ) {
+            const albumPicIndex = `${albumIndex}_${pictureIndex}`;
+            renderAlbumGallery(
+              `${this.dataset.albumPath}/${pictures[pictureIndex].imgLoRes}`,
+              pictures[pictureIndex].comment,
+              `${this.dataset.albumPath}/${pictures[pictureIndex].imgHiRes}`,
+              `${this.dataset.albumPath}/${pictures[pictureIndex].imgLoRes}`,
+              pictures[pictureIndex].title,
+              pictures[pictureIndex].id,
+              false,
+              albumPicIndex
+            );
+          }
         }
-        for (var i = 0; i < FlexWrapElements.length; i++) {
-          FlexWrapElements[i].style.display = "none";
+        for (var i = 0; i < elements.length; i++) {
+          elements[i].style.display = "none";
         }
-        for (var i = 0; i < FlexTwoElements.length; i++){
+         for (var i = 0; i < FlexTwoElements.length; i++){
           FlexTwoElements[i].style.display = "flex";
         }
         let h2 = document.querySelector(".Gallery-Title");
@@ -46,8 +82,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         btn.textContent = "Back";
         h2.appendChild(btn);
       });
-    } 
-    
+    }   
+  }
+
           var modal = document.getElementById("myModal");
           var modalImg = document.getElementById("img01");
           var pictureComment = document.getElementById("caption");
@@ -57,11 +94,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           pictureComment.setAttribute("contenteditable", "true");
           picTitle.setAttribute("contenteditable", "true");
 
-          
-        //change pictureComment to input form text
-          pictureComment.onclick = function() {
-          console.log("hej");
-        }
+
 
           nextButton.setAttribute("value", "next");
           nextButton.setAttribute("class", "nextButton")
@@ -82,10 +115,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           for (const album of library.albums) {
             for (const picture of album.pictures){
               if (album.path === this.dataset.albumPath){
-                renderAlbumGallery(`${this.dataset.albumPath}/${picture.imgLoRes}`, picture.comment, `${this.dataset.albumPath}/${picture.imgHiRes}`, `${this.dataset.albumPath}/${picture.imgLoRes}`, picture.title); 
-       
-                //  let h2 = document.querySelector('#Gallery-Title');
-                //  h2.textContent = album.title;
+                renderAlbumGallery(`${this.dataset.albumPath}/${picture.imgLoRes}`, picture.comment, `${this.dataset.albumPath}/${picture.imgHiRes}`, `${this.dataset.albumPath}/${picture.imgLoRes}`, picture.title, picture.id); 
               }
             }
           }
@@ -99,16 +129,15 @@ document.addEventListener('DOMContentLoaded', async () => {
               pictureComment.innerHTML = this.dataset.imgComment;
               picTitle.innerHTML = this.dataset.pictureTitle;
               modalImg.src = this.dataset.imgResPath;
-              
+
             }
+
 
             var span = document.getElementsByClassName("close")[0];
 
             // When the user clicks on <span> (x), close the modal
             span.onclick = function() {
               modal.style.display = "none";
-              picTitle.textContent = null;
-              pictureComment.textContent = null;
               currentImg = 2;
             }
           })
@@ -116,11 +145,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
           //NEXT IMAGE ON BTN CLICK
           nextButton.onclick = function() {
-              picTitle.innerHTML = null;
-              pictureComment.innerHTML = null;
             if (currentImg < testAlbumCollection.length){
-              
-      
+
               modalImg.src = testAlbumCollection[currentImg].hiResPath;
               pictureComment.innerHTML  = testAlbumCollection[currentImg].comment;
               picTitle.innerHTML = testAlbumCollection[currentImg].title;
@@ -131,8 +157,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 currentImg = 0;
               }
             }
-
-
             }
          }
        })
@@ -186,11 +210,12 @@ function renderAlbumHeader(src, tag, comment, title, id) {
 
 };
 
-function renderAlbumGallery(src, comment, hiResPath, loResPath, title) {
+function renderAlbumGallery(src, comment, hiResPath, loResPath, title, id) {
   const div = document.createElement('div');
   div.className = 'FlexItem-two';
   div.dataset.imgComment = comment;
   div.dataset.pictureTitle = title;
+  div.dataset.picId = id;
   let arrObj1 = {comment: comment, hiResPath: hiResPath, title: title};
 
             testAlbumCollection.push(arrObj1);
