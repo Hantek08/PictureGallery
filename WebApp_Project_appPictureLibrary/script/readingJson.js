@@ -87,6 +87,7 @@ const newObject = {
                 },
             ]
 }
+
 //CHECKING ABOVE CREATED OBJECT (CREATED AS JAVASCRIPT VALUES) NOW CONVERTED TO A JSON OBJECT
 // const jsonString = JSON.stringify(newObject);
 // console.log(jsonString);
@@ -104,13 +105,13 @@ const newObject = {
 // })
 
 //NEW JSONREADER FUNCTION TO READ FROM EXISTING JSON FILE, MODIFY IT AND THEN SAVE IT
-jsonReader('./app-data/library/picture-library.json', (err, data) => {
+jsonReader('./app-data/library/teos-testJson.json', (err, data) => {
     if (err){
         console.log(err);
     }
     else {
-        data.albums[1].pictures[1].comment = "Teos kommentar skriven via json writefile + stringify-metod";
-        fs.writeFile('./app-data/library/picture-library.json', JSON.stringify(data, null, 2), err=> {
+        data.albums[1].pictures[1].rating = "BRAVOS";
+        fs.writeFile('./app-data/library/teos-testJson.json', JSON.stringify(data, null, 2), err=> {
             if (err){
                 console.log(err);
             }
@@ -118,3 +119,4 @@ jsonReader('./app-data/library/picture-library.json', (err, data) => {
     }
 })
 
+    

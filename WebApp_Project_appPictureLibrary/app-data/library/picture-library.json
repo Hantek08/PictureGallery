@@ -107,14 +107,14 @@
       "title": "Newborn stars",
       "comment": "A star is born",
       "path": "app-data/library/pictures/newborn-stars",
-      "headerImage": "app-data/library/pictures/album-header/A Galactic Spectacle_4862916839_o~small.jpg",
+      "headerImage": "app-data/library/pictures/album-header/A_Galactic_Spectacle_4862916839_o~small.jpg",
       "pictures": [
         {
           "id": "l66egbjm4yzk76pnub6",
           "title": "A Galactic Spectacle",
           "comment": "NASA image release August 5, 2010 A beautiful new image of two colliding galaxies has been released by NASA's Great Observatories.",
-          "imgLoRes": "A Galactic Spectacle_4862916839_o~orig.jpg",
-          "imgHiRes": "A Galactic Spectacle_4862916839_o~orig.jpg"
+          "imgLoRes": "A_Galactic_Spectacle_4862916839_o~small.jpg",
+          "imgHiRes": "A_Galactic_Spectacle_4862916839_o~orig.jpg"
         },
         {
           "id": "l66egbjmvsnmhohob3j",

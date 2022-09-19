@@ -124,29 +124,83 @@ if (localStorage.getItem("pictureLibrary") == null) {
           galleryImg.forEach(function(img) {
             img.onclick = function(){
               modal.style.display = "inline-block";
-              pictureComment.innerHTML = this.dataset.imgComment;
-              picTitle.innerHTML = this.dataset.pictureTitle;
+            //   pictureComment.innerHTML = this.dataset.imgComment;
+            //   picTitle.innerHTML = this.dataset.pictureTitle;
               modalImg.src = this.dataset.imgResPath;
               
-              let testLocalStorage = JSON.parse(localStorage.getItem("pictureLibrary"));
-              for (const key of testLocalStorage.albums){
-                for (const pic of key.pictures){
-                  if (pic.id === this.dataset.picId){
-                    modal.onclick = function() {
-                      
-                      let x = testLocalStorage.albums.indexOf(key);
-                      let y = testLocalStorage.albums[x].pictures.indexOf(pic);
-                      console.log(testLocalStorage.albums.indexOf(key));
-                      testLocalStorage.albums[x].pictures[y].comment = pictureComment.textContent;
-                       console.log(testLocalStorage.albums[x].pictures.indexOf(pic));
 
-                       console.log(testLocalStorage.albums[x].pictures[y].comment);
+              //   for (let i = 0; i < albums.length; i++){
+              //   for (let k = 0; k < albums[i].pictures.length; k++){
+              //      if (albums[i].pictures[k].id === this.dataset.picId){
+              //       //  let x = albums.indexOf(key);
+              //       // let y = albums[x].pictures.indexOf(pic);
+              //       modal.onclick = function() {
+              //         albums[i].pictures[k].comment = pictureComment.textContent;
+              //         localStorage.setItem("pictureLibrary",JSON.stringify(albums));
+              //         let ls = localStorage.getItem("pictureLibrary");
+              //         console.log(ls[i].pictures[k]);
+              //       }
+              //   }
+              // }}
+
+              // let testLocalStorage = JSON.parse(localStorage.getItem("pictureLibrary"));
+              // for (const key of testLocalStorage.albums){
+              //   for (const pic of key.pictures){
+              //     if (pic.id === this.dataset.picId){
+              //       modal.onclick = function() {
+              //         // console.log("pictureComment.innerhtml == " + pictureComment.innerHTML);
+              //         // console.log("pic.comment == " + pic.comment);
+              //         // console.log(testLocalStorage.albums[1].pictures[1].title);
+
+
+              //         console.log(pic.id);
+              //         console.log(key.id);
+              //         console.log(key);
+              //         console.log(pic);
+                      
+              //         let x = testLocalStorage.albums.indexOf(key);
+              //         let y = testLocalStorage.albums[x].pictures.indexOf(pic);
+              //         console.log(testLocalStorage.albums.indexOf(key));
+              //         testLocalStorage.albums[x].pictures[y].comment = pictureComment.textContent;
+              //          console.log(testLocalStorage.albums[x].pictures.indexOf(pic));
+
+              //          console.log(testLocalStorage.albums[x].pictures[y].comment);
                        
-                
-                    }
-                  }
-                }
-              }
+                       
+              //         // localStorage.setItem("pictureLibrary", )
+              //         // let albumIdx = testLocalStorage.albums.indexOf(key);
+              //         // let picIdx =  testLocalStorage.albums[albumIdx].indexOf(pic.id);
+              //         // console.log(albumIdx);
+              //         // console.log(picIdx);                    
+              //       }
+              //     }
+              //   }
+              // }
+
+              // modal.onclick = function() {
+              //   for (let i = 0; i < albums.length; i++){
+              //     for (let k = 0; k < albums[i].pictures.length; k++){
+              //       if (albums[i].pictures[k].id === this.dataset.picId){
+              //         console.log(this.dataset.picId);
+              //       }
+              //     }
+              //   }
+              // }
+
+
+                // let testLocalStorage = JSON.parse(localStorage.getItem("pictureLibrary"));
+                // for (let i = 0; i < testLocalStorage.albums.length; i++){
+                //   for (let k = 0; k < testLocalStorage.albums[i].pictures.length; k++){
+                //     if (testLocalStorage.albums[i].pictures[k].id === this.dataset.picId){
+                //       modal.onclick = function() {
+                //         // console.log(testLocalStorage.albums[i].pictures[k].title);
+                //         testLocalStorage.albums[i].pictures[k].title = picTitle.innerHTML;
+                //        localStorage.setItem("pictureLibrary", JSON.stringify(testLocalStorage));
+                //       }
+                //     }
+                //   }
+                // }
+              
 
             }
 
@@ -198,13 +252,6 @@ function backToMainPageClicked(){
 }
 
 
-localStorage.setItem("wimansNyckel", "värderärpotatis");
-localStorage.setItem("wimansnyckel", "detjärärinteenpotatislängre");
-
-let i = 2;
-let k = "2";
-
-
 //Render the images
 function renderAlbumHeader(src, tag, comment, title, id) {
   
@@ -235,12 +282,17 @@ function renderAlbumHeader(src, tag, comment, title, id) {
 
 };
 
-function renderAlbumGallery(src, comment, hiResPath, loResPath, title, id) {
+function renderAlbumGallery(src, comment, hiResPath, loResPath, title, id, isAlbum, albumPicIndex) {
   const div = document.createElement('div');
   div.className = 'FlexItem-two';
   div.dataset.imgComment = comment;
   div.dataset.pictureTitle = title;
   div.dataset.picId = id;
+
+  const imageComment = document.createElement("p");
+  imageComment.setAttribute("id", "imageComment");
+  imageComment.textContent = comment;
+
   let arrObj1 = {comment: comment, hiResPath: hiResPath, title: title};
 
             testAlbumCollection.push(arrObj1);
@@ -273,9 +325,23 @@ function renderAlbumGallery(src, comment, hiResPath, loResPath, title, id) {
 
   const imgFlex = document.querySelector('.Flex-two');
   imgFlex.appendChild(div);
-
 }
    
+function editCommentEventListner(btn, albumIndex, pictureIndex, com) {
+  btn.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      const lib = JSON.parse(localStorage.getItem("pictureLibrary"));
+      lib.albums[albumIndex].pictures[pictureIndex].comment = com.textContent;
+      localStorage.setItem("pictureLibrary", JSON.stringify(lib));
+
+      com.innerHTML = lib.albums[albumIndex].pictures[pictureIndex].comment;
+    }
+  });
+}
+
+
+
 function removeAllChildNodes(parent) {
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild);

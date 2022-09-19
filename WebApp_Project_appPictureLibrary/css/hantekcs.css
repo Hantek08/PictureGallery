@@ -1,0 +1,253 @@
+/* BASIC STYLES
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+:root {
+  --yellow: #fffbbc;
+  --lightbox: #242424;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  /* background-image: linear-gradient(
+    90deg,
+    #4cb1d1,
+    #5e62b0,
+    #c1668e
+  );  */
+  /* background-image: linear-gradient(90deg, #33b7e2, #5e62b0, #dc307c); */
+  /* font: 20px / 28px "Marck Script", cursive; */
+  background-color: #237693a8;
+}
+
+.notification {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 5px 15px;
+  margin: 0;
+  text-align: center;
+  z-index: 1;
+  background: var(--yellow);
+}
+
+p {
+  color: #fff;
+}
+
+h2 {
+  font-weight: bold;
+  font: 55px / 115px "Monospace", cursive;
+  font-family: Georgia, Serif;
+  margin-bottom: 40px;
+  padding-top: 40px;
+  color: #fff;
+}
+.wrapper {
+  max-width: 53.33rem;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+  transform: translateY(-5%);
+  top: 50%;
+  text-align: center;
+}
+h1 {
+  line-height: 1;
+  margin-top: 0;
+  color: #fff;
+  display: inline-block;
+  position: relative;
+}
+.bree-serif {
+  font-family: "Bree Serif";
+}
+.giga {
+  font-size: 4vw;
+  margin-bottom: 2rem;
+  margin-top: 4rem;
+}
+.double-header-line:after {
+  right: -7.5rem;
+}
+.double-header-line:before,
+.double-header-line:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 7rem;
+  background-color: transparent;
+  height: 5px;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  top: 50%;
+  margin-left: -125px;
+}
+@media (max-width: 700px) {
+  .notification {
+    display: none;
+  }
+}
+
+.item {
+  margin-bottom: 30px;
+}
+
+.item h3 {
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: 40px;
+  padding-top: 40px;
+  color: #fff;
+}
+.item .box {
+  text-align: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 280px;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid #100e0e;
+  /* box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.15); */
+  /* transition: box-shadow -0.8s; */
+  -moz-box-shadow: 10px 10px 5px #ccc;
+  -webkit-box-shadow: 10px 10px 5px #ccc;
+  box-shadow: 10px 10px 5px #1f1b1b;
+  -moz-border-radius: 25px;
+  -webkit-border-radius: 25px;
+  border-radius: 25px;
+}
+
+.item .cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* background-color: rgba(31, 148, 255, 0.75); */
+  background-color: #237693a8;
+  transition: opacity 0.15s ease-in;
+  opacity: 0;
+  padding-top: 80px;
+  color: #fff;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
+}
+
+.item:hover .cover {
+  opacity: 1;
+}
+
+.item .name {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.item .title {
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #bbd8fb;
+  letter-spacing: 2px;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+/* IMAGE GRID STYLES
+    –––––––––––––––––––––––––––––––––––––––––––––––––– */
+.img-fluid {
+  max-width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 2%;
+}
+.album-grid figure {
+  margin-bottom: 0;
+}
+
+.album-grid img {
+  box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.2s;
+}
+/* .card {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  justify-content: space-between;
+  align-items: start;
+  background-color: #237693a8;
+  transition: transform 0.5s;
+} */
+.card {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  transition: transform 0.5s;
+  flex-direction: column;
+  background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+}
+.card img {
+  max-width: 100%;
+  height: 200px;
+}
+
+.card:hover {
+  transform: scale(1.1);
+}
+/* .image-grid a:hover img {
+  box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.35);
+} */
+
+/* LIGHTBOX STYLES
+    –––––––––––––––––––––––––––––––––––––––––––––––––– */
+.lightbox-modal .modal-content {
+  background: var(--lightbox);
+}
+
+.lightbox-modal .btn-close {
+  position: absolute;
+  top: 20px;
+  right: 18px;
+  font-size: 1.2rem;
+  z-index: 10;
+}
+
+.lightbox-modal .modal-body {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  text-align: center;
+}
+
+.lightbox-modal img {
+  width: auto;
+  max-height: 100vh;
+  max-width: 100%;
+}
+
+.lightbox-modal .carousel-caption {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(36, 36, 36, 0.75);
+}
+
+.lightbox-modal .carousel-control-prev,
+.lightbox-modal .carousel-control-next {
+  top: 50%;
+  bottom: auto;
+  transform: translateY(-50%);
+  width: auto;
+}
+
+.lightbox-modal .carousel-control-prev {
+  left: 10px;
+}
+
+.lightbox-modal .carousel-control-next {
+  right: 10px;
+}
+
+/* FOOTER STYLES
+    –––––––––––––––––––––––––––––––––––––––––––––––––– */

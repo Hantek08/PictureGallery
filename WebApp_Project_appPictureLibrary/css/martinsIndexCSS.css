@@ -55,7 +55,7 @@ img {
   display: block;
 }
 
-.albumTitle {
+.albumComment {
   font-weight: bold;
 }
 
@@ -126,11 +126,10 @@ img {
 }
 
 .Flex-two .FlexItem-two div p{
-  color:  rgba(255, 255, 255, 0.5);
-  font-size: small;
+  color:  rgba(255, 255, 255, 0.8);
+  font-size: medium;
   background-color: transparent;
   opacity: 0;
-  margin-bottom: 0;
 }
 
 .Flex-two .FlexItem-two:hover div p{

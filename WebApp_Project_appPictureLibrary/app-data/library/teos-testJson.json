@@ -70,7 +70,8 @@
           "title": "Hubble Peers into the Storm",
           "comment": "Teos kommentar skriven via json writefile + stringify-metod",
           "imgLoRes": "GSFC_20171208_Archive_e000226~small.jpg",
-          "imgHiRes": "GSFC_20171208_Archive_e000226~orig.jpg"
+          "imgHiRes": "GSFC_20171208_Archive_e000226~orig.jpg",
+          "rating": "BRAVOS"
         },
         {
           "id": "l66egbjm3s03hycebc9",
