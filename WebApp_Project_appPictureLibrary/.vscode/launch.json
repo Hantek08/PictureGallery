@@ -15,14 +15,14 @@
       "type": "chrome",
       "request": "launch",
       "name": "Chrome index.html",
-      "url": "http://localhost:5501/${relativeFileDirname}/index.html",
+      "url": "http://localhost:5502/${relativeFileDirname}/index.html",
       "webRoot": "${workspaceFolder}"
     },
     {
       "type": "chrome",
       "request": "launch",
       "name": "Chrome ../index.html",
-      "url": "http://localhost:5501/${relativeFileDirname}/../index.html",
+      "url": "http://localhost:5502/${relativeFileDirname}/../index.html",
       "webRoot": "${workspaceFolder}"
     },
     {
