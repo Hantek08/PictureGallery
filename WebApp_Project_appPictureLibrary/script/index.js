@@ -61,64 +61,130 @@ document.addEventListener("DOMContentLoaded", async () => {
           }
         }
         albumGrid.style.display = "none";
-        if (albumIndex == 4) {
-          const imgGrid = document.querySelector(".image-grid");
-          const btn = document.querySelector(".selectedImg");
 
-          btn.addEventListener("click", function () {
+        // //SHOW SELECTED IMAGES
+        // if (albumIndex == 4) {
+        //   const imgGrid = document.querySelector(".image-grid");
+        //   const btn = document.querySelector(".selectedImg");
+        //   const lightboxModal = document.getElementById("lightbox-modal");
+        //   const bsModal = new bootstrap.Modal(lightboxModal);
+        //   const modalBody = document.querySelector(".modal-body .container-fluid");
+          
+        //   let checkedItemsTrue = [];
+        //   btn.addEventListener("click", function (e) {
+        //     e.preventDefault();
+        //     let checkedItems = document.querySelectorAll(
+        //       "input[type='checkbox']:checked"
+        //     );
+            
+        //     for (const item of checkedItems) {
+        //       if (item.checked == true) {
+        //         checkedItemsTrue.push(item.id);
+        //         createCarousel(item.id);
+        //       }
+        //     }
+        //     bsModal.show();
+        //     console.log(checkedItemsTrue);
+        //   });
+
+        //    function createCarousel(img) {
+        //     console.log("img here", img);
+
+        //     const markup = `
+        //       <div id="lightboxCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000" >
+        //         <div class="carousel-inner">
+        //           ${createSlides(img)}
+        //         </div>
+        //         <button class="carousel-control-prev" type="button" data-bs-target="#lightboxCarousel" data-bs-slide="prev">
+        //          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        //          <span class="visually-hidden">Previous</span>
+        //         </button>
+        //         <button class="carousel-control-next" type="button" data-bs-target="#lightboxCarousel" data-bs-slide="next">
+        //           <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        //           <span class="visually-hidden">Next</span>
+        //         </button>
+        //       </div>
+        //       `;
+        //     modalBody.innerHTML = markup;
+        //   }
+
+        //   function createSlides(img) {
+        //     let markup = "";
+        //     const currentImgSrc = img;
+
+        //     for (const img of checkedItemsTrue) {
+        //       const imgSrc = img;
+        //       markup += `
+        //       <div class="carousel-item${
+        //         currentImgSrc === imgSrc ? " active" : ""
+        //       }">
+        //       <img src=${imgSrc} >
+        //       </div>
+        //       `;
+        //     }
+
+        //     return markup;
+        //   }
+
+          
+        // }
+
+        //
+        //SHOW ALL IMAGES IN ALBUM SLIDESHOW
+        if (albumIndex == 4) {
+          const links = document.querySelectorAll(".card");
+          const imgs = document.querySelectorAll("img");
+          const h5 = document.querySelectorAll("h5");
+          const p = document.querySelectorAll("p");
+          const lightboxModal = document.getElementById("lightbox-modal");
+          const bsModal = new bootstrap.Modal(lightboxModal);
+          const modalBody = document.querySelector(".modal-body .container-fluid");
+          const imgBtn = document.querySelector(".allImg");
+           const btn = document.querySelector(".selectedImg");
+
+          //when clicked "View All Images"-button, show all images in slide show
+          imgBtn.addEventListener("click", function(e){
+            e.preventDefault();
+            for (const link of links) {
+                const currentImg = link.querySelector("img");
+                const lightboxCarousel =
+                  document.getElementById("lightboxCarousel");
+                console.log("lightboxCarousel", lightboxCarousel);
+                if (lightboxCarousel) {
+                  const parentCol = link.parentElement.parentElement;
+                  console.log(link.parentElement.parentElement);
+                  const index = [...parentCol.parentElement.children].indexOf(
+                    parentCol
+                  );
+                  const bsCarousel = new bootstrap.Carousel(lightboxCarousel);
+                  bsCarousel.to(index);
+                } else {
+                  createCarousel(currentImg);
+                }
+                bsModal.show();
+            }
+          });
+
+
+                  
+          let checkedItemsTrue = [];
+          btn.addEventListener("click", function (e) {
+            e.preventDefault();
             let checkedItems = document.querySelectorAll(
               "input[type='checkbox']:checked"
             );
-            //console.clear();
-            let checkedItemsTrue = [];
-
-            // checkedItems.forEach(function (cb) {
-            //   console.log("result", cb.value);
-            // });
-
+            
             for (const item of checkedItems) {
               if (item.checked == true) {
-                checkedItemsTrue.push(item.value);
+                checkedItemsTrue.push(item.id);
+                createCarouselSecond(item.id);
               }
             }
+            bsModal.show();
             console.log(checkedItemsTrue);
           });
-        }
 
-        if (albumIndex == 4) {
-          const imgGrid = document.querySelector(".image-grid");
-          const links = imgGrid.querySelectorAll(".card");
-          const imgs = imageGrid.querySelectorAll("img");
-          const h5 = imageGrid.querySelectorAll("h5");
-          const p = imageGrid.querySelectorAll("p");
-          const lightboxModal = document.getElementById("lightbox-modal");
-          const bsModal = new bootstrap.Modal(lightboxModal);
-          const modalBody = document.querySelector(
-            ".modal-body .container-fluid"
-          );
-          for (const link of links) {
-            link.addEventListener("click", function (e) {
-              e.preventDefault();
-              const currentImg = link.querySelector("img");
-              const currentH5 = link.querySelector("h5");
-              const currentP = link.querySelector("p");
-              const lightboxCarousel =
-                document.getElementById("lightboxCarousel");
-              console.log("lightboxCarousel", lightboxCarousel);
-              if (lightboxCarousel) {
-                const parentCol = link.parentElement.parentElement;
-                console.log(link.parentElement.parentElement);
-                const index = [...parentCol.parentElement.children].indexOf(
-                  parentCol
-                );
-                const bsCarousel = new bootstrap.Carousel(lightboxCarousel);
-                bsCarousel.to(index);
-              } else {
-                createCarousel(currentImg);
-              }
-              bsModal.show();
-            });
-          }
+
 
           function createCarousel(img) {
             console.log("img here", img);
@@ -163,6 +229,47 @@ document.addEventListener("DOMContentLoaded", async () => {
             return `<div class="carousel-caption">
                <p class="m-0">${caption}</p>
               </div>`;
+          }
+
+
+
+          function createCarouselSecond(img) {
+            console.log("img here", img);
+
+            const markup = `
+              <div id="lightboxCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000" >
+                <div class="carousel-inner">
+                  ${createSlidesSecond(img)}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#lightboxCarousel" data-bs-slide="prev">
+                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                 <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#lightboxCarousel" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+              `;
+            modalBody.innerHTML = markup;
+          }
+
+          function createSlidesSecond(img) {
+            let markup = "";
+            const currentImgSrc = img;
+
+            for (const img of checkedItemsTrue) {
+              const imgSrc = img;
+              markup += `
+              <div class="carousel-item${
+                currentImgSrc === imgSrc ? " active" : ""
+              }">
+              <img src=${imgSrc} >
+              </div>
+              `;
+            }
+
+            return markup;
           }
         }
 
@@ -336,8 +443,8 @@ function renderImageGallery(
 ) {
   const markupImage = `<div class="col-12 col-sm-6 col-md-4 col-lg-3 item">
 <div class="card text-white custom-control custom-checkbox custom-control-label" >
-<input type="checkbox" class="check custom-control-input" id="${id}">
-<label class="custom-control-label" for="${id}">
+<input type="checkbox" class="check custom-control-input" id="${src}">
+<label class="custom-control-label" for="${src}">
 <img class="card-img-top" src="${src}" alt="Card image cap">
 <div class="card-body">
   <h5 class="card-title">${title}</h5>
