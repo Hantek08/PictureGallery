@@ -268,6 +268,7 @@ h1 {
   right: 0;
   top: 0;
   background: rgba(36, 36, 36, 0.75);
+  font-size: 4vw;
 }
 
 .lightbox-modal .carousel-control-prev,
@@ -297,6 +298,16 @@ h1 {
 
 .stars a {
   list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  color: #ffd640;
+  background-color: transparent;
+  text-decoration: none;
 }
 
 .stars-item {
