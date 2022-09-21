@@ -286,5 +286,41 @@ h1 {
   right: 10px;
 }
 
+
+/* RATING STYLES
+      -------------------------------------------------*/
+      
+      .stars {
+        display: flex;
+        padding: 0;
+        margin: 0;
+      }
+
+      .stars a {
+        list-style-type: none;
+      }
+      
+      .stars-item {
+        cursor: pointer;
+        font-size: 2em;
+        color: #ffd640;
+      }
+      
+      .stars-item::before {
+        content: "\2605";
+      }
+
+      .stars-item.active ~ .stars-item::before {
+        content: "\2606";
+      }
+
+      .stars:hover .stars-item::before {
+        content: "\2605";
+      }
+
+      .stars-item:hover ~ .stars-item::before {
+        content: "\2606";
+      }
+
 /* FOOTER STYLES
       –––––––––––––––––––––––––––––––––––––––––––––––––– */
