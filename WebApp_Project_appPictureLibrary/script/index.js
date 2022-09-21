@@ -591,10 +591,6 @@ imageGrid.appendChild(div1);
 
 console.log(rating);
 
-
-
-
-
   // const stars = document.querySelectorAll(".stars-item");
   // starWrapper.onclick = (e) => {
   //   const elClass = e.target.classList;
