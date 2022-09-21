@@ -286,41 +286,83 @@ h1 {
   right: 10px;
 }
 
-
 /* RATING STYLES
       -------------------------------------------------*/
-      
-      .stars {
-        display: flex;
-        padding: 0;
-        margin: 0;
-      }
 
-      .stars a {
-        list-style-type: none;
-      }
-      
-      .stars-item {
-        cursor: pointer;
-        font-size: 2em;
-        color: #ffd640;
-      }
-      
-      .stars-item::before {
-        content: "\2605";
-      }
+.stars {
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
 
-      .stars-item.active ~ .stars-item::before {
-        content: "\2606";
-      }
+.stars a {
+  list-style-type: none;
+}
 
-      .stars:hover .stars-item::before {
-        content: "\2605";
-      }
+.stars-item {
+  cursor: pointer;
+  font-size: 2em;
+  color: #ffd640;
+}
 
-      .stars-item:hover ~ .stars-item::before {
-        content: "\2606";
-      }
+.stars-item::before {
+  content: "\2605";
+}
 
-/* FOOTER STYLES
+.stars-item.active ~ .stars-item::before {
+  content: "\2606";
+}
+
+.stars:hover .stars-item::before {
+  content: "\2605";
+}
+
+.stars-item:hover ~ .stars-item::before {
+  content: "\2606";
+}
+
+/* View Selected Image Button STYLES
       –––––––––––––––––––––––––––––––––––––––––––––––––– */
+.selectedImg {
+  padding: 1em 2.1em 1.1em;
+  border-radius: 3px;
+  margin: 8px 8px 8px 8px;
+  color: #fbdedb;
+  background-color: #fbdedb;
+  display: inline-block;
+  background: #e74c3c;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+  font-family: sans-serif;
+  font-weight: 800;
+  font-size: 0.85em;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+  -webkit-box-shadow: 0em -0.3rem 0em rgba(0, 0, 0, 0.1) inset;
+  -moz-box-shadow: 0em -0.3rem 0em rgba(0, 0, 0, 0.1) inset;
+  box-shadow: 0em -0.3rem 0em rgba(0, 0, 0, 0.1) inset;
+  position: relative;
+  background-color: #b58a00;
+  margin-bottom: 30px;
+  border: none;
+}
+.selectedImg:hover,
+.selectedImg:focus {
+  opacity: 0.8;
+}
+.selectedImg:active {
+  -webkit-transform: scale(0.8);
+  -moz-transform: scale(0.8);
+  -ms-transform: scale(0.8);
+  -o-transform: scale(0.8);
+  transform: scale(0.8);
+}
+.selectedImg.block {
+  display: block !important;
+}
+.selectedImg.circular {
+  border-radius: 50em !important;
+}
