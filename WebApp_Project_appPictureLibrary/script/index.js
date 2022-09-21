@@ -280,31 +280,35 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
 
-        function ratingEventListener (albumIndex, pictureIndex) {
-          // RATING TEST!!
-        const starWrapper = document.querySelector(".stars");
-        const stars = document.querySelectorAll(".stars a");
         
-        stars.forEach((star, clickedIdx) => {
-          star.addEventListener("click", () => {
-            starWrapper.classList.add("disabled")
-            stars.forEach((otherStar,otherIdx) =>{
-              if (otherIdx <= clickedIdx) {
-                otherStar.classList.add("active")
-              }
-            });
-            // Här ska man spara ratingen!
-            // const lib = JSON.parse(localStorage.getItem("pictureLibrary"));
-            //   lib.albums[albumIndex].pictures[pictureIndex].rating = clickedIdx;
-            //   localStorage.setItem("pictureLibrary", JSON.stringify(lib));
+        // function ratingEventListener (albumIndex, pictureIndex, rating) {
+          
+        // // RATING TEST!!
+
+        // this.rating = rating;
+        // const starWrapper = document.querySelector(".stars");
+        // const stars = document.querySelectorAll(".stars a");
+        
+        // stars.forEach((star, clickedIdx) => {
+        //   star.addEventListener("click", () => {
+        //     starWrapper.classList.add("disabled")
+        //     stars.forEach((otherStar,otherIdx) =>{
+        //       if (otherIdx <= clickedIdx) {
+        //         otherStar.classList.add("active")
+        //       }
+        //     });
+        //     // Här ska man spara ratingen!
+        //      const lib = JSON.parse(localStorage.getItem("pictureLibrary"));
+        //        lib.albums[albumIndex].pictures[pictureIndex].rating = clickedIdx;
+        //        localStorage.setItem("pictureLibrary", JSON.stringify(lib));
               
-               console.log(`star of index ${clickedIdx +1} was clicked`);
+        //        console.log(`star of index ${clickedIdx +1} was clicked`);
         
-            //   com.innerHTML = lib.albums[albumIndex].pictures[pictureIndex].comment;
-          });
+        //     //   com.innerHTML = lib.albums[albumIndex].pictures[pictureIndex].comment;
+        //   });
         
-        });
-        }
+        // });
+        // }
 
         // for (var i = 0; i < secondElements.length; i++) {
         //   secondElements[i].style.display = "grid";
@@ -488,11 +492,11 @@ function renderImageGallery(
   <h5 class="card-title">${title}</h5>
   <p class="card-text";">${pictureComment.substring(0, 28) + "..."}</p>
   <div class="stars">
-  <a>⭐</a>
-  <a>⭐</a>
-  <a>⭐</a>
-  <a>⭐</a>
-  <a>⭐</a>
+  <a class="stars-item" data-rate="1"></a>
+  <a class="stars-item active" data-rate="2"></a>
+  <a class="stars-item" data-rate="3"></a>
+  <a class="stars-item" data-rate="4"></a>
+  <a class="stars-item" data-rate="5"></a>
 </div>
 </div>
 
@@ -500,6 +504,18 @@ function renderImageGallery(
 </div>`;
 
   imageGrid.innerHTML += markupImage;
+
+
+  const starWrapper = document.querySelector(".stars");
+  const stars = document.querySelectorAll(".stars-item");
+  starWrapper.onclick = (e) => {
+    const elClass = e.target.classList;
+    if (!elClass.contains("active")) {
+      stars.forEach((star) => star.classList.remove("active"));
+      console.log(e.target.getAttribute("data-rate"));
+      elClass.add("active");
+    }
+  };
 
   // const div1 = document.createElement("div");
   // div1.classList.add("col-12", "col-sm-6", "col-md-4", "col-lg-3", "item");

@@ -289,40 +289,37 @@ h1 {
 
 /* RATING STYLES
       -------------------------------------------------*/
-
-      :root {
-        --opacity: 50%;
-      }
-      
       
       .stars {
         display: flex;
+        padding: 0;
+        margin: 0;
       }
-      
-      .stars.disabled {
-        pointer-events: none;
-      }
-      
+
       .stars a {
-        opacity: var(--opacity);
+        list-style-type: none;
+      }
+      
+      .stars-item {
         cursor: pointer;
-        padding:3px;
+        font-size: 2em;
+        color: #ffd640;
       }
       
-      .stars:hover a {
-        opacity: 100%;
+      .stars-item::before {
+        content: "\2605";
       }
-      
-      .stars a:hover {
-        opacity: 100%;
+
+      .stars-item.active ~ .stars-item::before {
+        content: "\2606";
       }
-      
-      .stars a:hover ~ a{
-        opacity: var(--opacity);
+
+      .stars:hover .stars-item::before {
+        content: "\2605";
       }
-      
-      .stars a.active {
-        opacity: 100%;
+
+      .stars-item:hover ~ .stars-item::before {
+        content: "\2606";
       }
 
 /* FOOTER STYLES
