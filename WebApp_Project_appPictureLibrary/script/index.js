@@ -48,29 +48,27 @@ document.addEventListener("DOMContentLoaded", async () => {
             let pictureIndex = 0;
             pictureIndex < pictures.length;
             pictureIndex++
-            ) {
-              const albumPicIndex = `${albumIndex}_${pictureIndex}`;
-              renderImageGallery(
-                `${albums[albumIndex].path}/${pictures[pictureIndex].imgLoRes}`,
-                pictures[pictureIndex].id,
-                pictures[pictureIndex].title,
-                pictures[pictureIndex].comment,
-                false,
-                albumPicIndex,
-                pictures[pictureIndex].rating,
-               `${albums[albumIndex].path}/${pictures[pictureIndex].imgHiRes}`,
-
-                );
+          ) {
+            const albumPicIndex = `${albumIndex}_${pictureIndex}`;
+            renderImageGallery(
+              `${albums[albumIndex].path}/${pictures[pictureIndex].imgLoRes}`,
+              pictures[pictureIndex].id,
+              pictures[pictureIndex].title,
+              pictures[pictureIndex].comment,
+              false,
+              albumPicIndex,
+              pictures[pictureIndex].rating,
+              `${albums[albumIndex].path}/${pictures[pictureIndex].imgHiRes}`
+            );
           }
-          
-          
-            // const starWrapper = document.querySelector(".card-body");
-            //   for (let i = 0; i < rating; i++){
-            //     let star = document.createElement("a");
-            //     star.dataset.rate = rating;
-            //     star.setAttribute("class", "stars-item");
-            //     starWrapper.appendChild(star);
-            //        }
+
+          // const starWrapper = document.querySelector(".card-body");
+          //   for (let i = 0; i < rating; i++){
+          //     let star = document.createElement("a");
+          //     star.dataset.rate = rating;
+          //     star.setAttribute("class", "stars-item");
+          //     starWrapper.appendChild(star);
+          //        }
         }
         albumGrid.style.display = "none";
 
@@ -153,9 +151,10 @@ document.addEventListener("DOMContentLoaded", async () => {
           const imgBtn = document.querySelector(".allImg");
           const btn = document.querySelector(".selectedImg");
 
-
-            let test = document.querySelectorAll(".card text-white custom-control custom-checkbox custom-control-label");
-            console.log(test);
+          let test = document.querySelectorAll(
+            ".card text-white custom-control custom-checkbox custom-control-label"
+          );
+          console.log(test);
 
           // const test = document.querySelector(".card-body");
           // for (let i = 0; i< test.length; i++){
@@ -172,9 +171,6 @@ document.addEventListener("DOMContentLoaded", async () => {
           //   stars.setAttribute("class", "stars-item");
           //   test.appendChild(stars);
           // }
-          
-
-
 
           //when clicked "View All Images"-button, show all images in slide show
           // imgBtn.addEventListener("click", function (e) {
@@ -209,14 +205,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             for (const item of checkedItems) {
               if (item.checked == true) {
-                const obj = ({
-                  id: item.id, 
-                  hires: item.dataset.hires, 
-                  pictureIdx: item.dataset.pictureindex, 
+                const obj = {
+                  id: item.id,
+                  hires: item.dataset.hires,
+                  pictureIdx: item.dataset.pictureindex,
                   albumIdx: item.dataset.albumindex,
-                title: item.dataset.title,
-                comment: item.dataset.comment
-              });
+                  title: item.dataset.title,
+                  comment: item.dataset.comment,
+                };
                 checkedItemsTrue.push(obj);
                 //    const obj = ({ hires: item.dataset.hires, id: item.dataset.id, album: item.dataset.albumindex, picture: item.dataset.picindex});
                 // checkedItemsTrue.push(obj);
@@ -330,7 +326,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             return markup;
           }
 
-
           function createCaptionSecond(caption) {
             return `<div class="carousel-caption">
                <p class="m-0">${caption}</p>
@@ -344,16 +339,14 @@ document.addEventListener("DOMContentLoaded", async () => {
           }
         }
 
-
-        
         // function ratingEventListener (albumIndex, pictureIndex, rating) {
-          
+
         // // RATING TEST!!
 
         // this.rating = rating;
         // const starWrapper = document.querySelector(".stars");
         // const stars = document.querySelectorAll(".stars a");
-        
+
         // stars.forEach((star, clickedIdx) => {
         //   star.addEventListener("click", () => {
         //     starWrapper.classList.add("disabled")
@@ -366,12 +359,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         //      const lib = JSON.parse(localStorage.getItem("pictureLibrary"));
         //        lib.albums[albumIndex].pictures[pictureIndex].rating = clickedIdx;
         //        localStorage.setItem("pictureLibrary", JSON.stringify(lib));
-              
+
         //        console.log(`star of index ${clickedIdx +1} was clicked`);
-        
+
         //     //   com.innerHTML = lib.albums[albumIndex].pictures[pictureIndex].comment;
         //   });
-        
+
         // });
         // }
 
@@ -390,8 +383,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
     }
   }
-
-
 
   //   var modal = document.getElementById("myModal");
   //   var modalImg = document.getElementById("img01");
@@ -547,8 +538,7 @@ function renderImageGallery(
   rating,
   hiResPath
 ) {
-
-  // const markupImage = 
+  // const markupImage =
   // `<div class="col-12 col-sm-6 col-md-4 col-lg-3 item" >
   //     <div class="card text-white custom-control custom-checkbox custom-control-label" data-rating="${rating}" >
   //       <input type="checkbox" class="check custom-control-input" id="${src}">
@@ -564,74 +554,79 @@ function renderImageGallery(
   // </div>`;
   // imageGrid.innerHTML += markupImage;
 
-const div1 = document.createElement("div");
-div1.classList.add("col-12", "col-sm-6", "col-md-4", "col-lg-3", "item");
+  const div1 = document.createElement("div");
+  div1.classList.add("col-12", "col-sm-6", "col-md-4", "col-lg-3", "item");
 
-const div2 = document.createElement("div");
-div2.classList.add("card", "text-white", "custom-control", "custom-checkbox", "custom-control-label");
-const input2 = document.createElement("input");
-input2.setAttribute("type", "checkbox");
-input2.classList.add("check", "custom-control-input");
-input2.setAttribute("id", src);
+  const div2 = document.createElement("div");
+  div2.classList.add(
+    "card",
+    "text-white",
+    "custom-control",
+    "custom-checkbox",
+    "custom-control-label"
+  );
+  const input2 = document.createElement("input");
+  input2.setAttribute("type", "checkbox");
+  input2.classList.add("check", "custom-control-input");
+  input2.setAttribute("id", src);
 
-const albIndex = albumPicIndex.split("_")[0];
-const picIndex = albumPicIndex.split("_")[1];
+  const albIndex = albumPicIndex.split("_")[0];
+  const picIndex = albumPicIndex.split("_")[1];
 
-input2.dataset.hires = hiResPath;
-input2.dataset.albumindex = albIndex;
-input2.dataset.pictureindex = picIndex;
-input2.dataset.comment = pictureComment;
-input2.dataset.title = title;
+  input2.dataset.hires = hiResPath;
+  input2.dataset.albumindex = albIndex;
+  input2.dataset.pictureindex = picIndex;
+  input2.dataset.comment = pictureComment;
+  input2.dataset.title = title;
 
-const label3 = document.createElement("label");
-label3.classList.add("custom-control-label");
-label3.setAttribute("for", src);
+  const label3 = document.createElement("label");
+  label3.classList.add("custom-control-label");
+  label3.setAttribute("for", src);
 
-const img4 = document.createElement("img");
-img4.classList.add("card-img-top");
-img4.src = src;
-img4.dataset.title = title;
-img4.dataset.caption = pictureComment;
-img4.dataset.rating = rating;
+  const img4 = document.createElement("img");
+  img4.classList.add("card-img-top");
+  img4.src = src;
+  img4.dataset.title = title;
+  img4.dataset.caption = pictureComment;
+  img4.dataset.rating = rating;
 
-const check5 = document.createElement("i");
-check5.classList.add("fa", "fa-check-circle");
+  const check5 = document.createElement("i");
+  check5.classList.add("fa", "fa-check-circle");
 
-const div6 = document.createElement("div");
-div6.className = "card-body";
-div6.dataset.rating = rating;
+  const div6 = document.createElement("div");
+  div6.className = "card-body";
+  div6.dataset.rating = rating;
 
-const h57 = document.createElement("h5");
-h57.className = "card-title";
-h57.textContent = title;
+  const h57 = document.createElement("h5");
+  h57.className = "card-title";
+  h57.textContent = title;
 
-const p8 = document.createElement("p");
-p8.className = "card-text";
-p8.textContent = pictureComment.substring(0, 28) + "...";
+  const p8 = document.createElement("p");
+  p8.className = "card-text";
+  p8.textContent = pictureComment.substring(0, 28) + "...";
 
+  div6.appendChild(h57);
+  div6.appendChild(p8);
 
-div6.appendChild(h57);
-div6.appendChild(p8);
+  for (let i = 0; i < rating; i++) {
+    const stars = document.createElement("a");
+    stars.className = "stars-item";
 
-for (let i = 0; i< rating; i++){
-  const stars = document.createElement("a");
-  stars.className = "stars-item";
+    div6.appendChild(stars);
+  }
 
-  div6.appendChild(stars);
-}
+  label3.appendChild(img4);
+  label3.appendChild(check5);
 
-label3.appendChild(img4);
-label3.appendChild(check5);
+  div2.appendChild(input2);
+  div2.appendChild(label3);
+  div2.appendChild(div6);
 
-div2.appendChild(input2);
-div2.appendChild(label3);
-div2.appendChild(div6);
+  div1.appendChild(div2);
 
-div1.appendChild(div2);
+  imageGrid.appendChild(div1);
 
-imageGrid.appendChild(div1);
-
-console.log(rating);
+  console.log(rating);
 
   // const stars = document.querySelectorAll(".stars-item");
   // starWrapper.onclick = (e) => {
@@ -642,7 +637,6 @@ console.log(rating);
   //     elClass.add("active");
   //   }
   // };
-
 
   // const div1 = document.createElement("div");
   // div1.classList.add("col-12", "col-sm-6", "col-md-4", "col-lg-3", "item");
