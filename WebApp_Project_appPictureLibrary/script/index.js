@@ -177,27 +177,27 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
           //when clicked "View All Images"-button, show all images in slide show
-          imgBtn.addEventListener("click", function (e) {
-            e.preventDefault();
-            for (const link of links) {
-              const currentImg = link.querySelector("img");
-              const lightboxCarousel =
-                document.getElementById("lightboxCarousel");
-              console.log("lightboxCarousel", lightboxCarousel);
-              if (lightboxCarousel) {
-                const parentCol = link.parentElement.parentElement;
-                console.log(link.parentElement.parentElement);
-                const index = [...parentCol.parentElement.children].indexOf(
-                  parentCol
-                );
-                const bsCarousel = new bootstrap.Carousel(lightboxCarousel);
-                bsCarousel.to(index);
-              } else {
-                createCarousel(currentImg);
-              }
-              bsModal.show();
-            }
-          });
+          // imgBtn.addEventListener("click", function (e) {
+          //   e.preventDefault();
+          //   for (const link of links) {
+          //     const currentImg = link.querySelector("img");
+          //     const lightboxCarousel =
+          //       document.getElementById("lightboxCarousel");
+          //     console.log("lightboxCarousel", lightboxCarousel);
+          //     if (lightboxCarousel) {
+          //       const parentCol = link.parentElement.parentElement;
+          //       console.log(link.parentElement.parentElement);
+          //       const index = [...parentCol.parentElement.children].indexOf(
+          //         parentCol
+          //       );
+          //       const bsCarousel = new bootstrap.Carousel(lightboxCarousel);
+          //       bsCarousel.to(index);
+          //     } else {
+          //       createCarousel(currentImg);
+          //     }
+          //     bsModal.show();
+          //   }
+          // });
 
           let checkedItemsTrue = [];
           btn.addEventListener("click", function (e) {
