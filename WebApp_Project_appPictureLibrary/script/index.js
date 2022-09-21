@@ -61,14 +61,6 @@ document.addEventListener("DOMContentLoaded", async () => {
               `${albums[albumIndex].path}/${pictures[pictureIndex].imgHiRes}`
             );
           }
-
-          // const starWrapper = document.querySelector(".card-body");
-          //   for (let i = 0; i < rating; i++){
-          //     let star = document.createElement("a");
-          //     star.dataset.rate = rating;
-          //     star.setAttribute("class", "stars-item");
-          //     starWrapper.appendChild(star);
-          //        }
         }
         albumGrid.style.display = "none";
 
@@ -140,6 +132,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         //
         //SHOW ALL IMAGES IN ALBUM SLIDESHOW
+
         if (albumIndex == 4) {
           const links = document.querySelectorAll(".card");
           const imgs = document.querySelectorAll("img");
@@ -150,11 +143,6 @@ document.addEventListener("DOMContentLoaded", async () => {
           );
           const imgBtn = document.querySelector(".allImg");
           const btn = document.querySelector(".selectedImg");
-
-          let test = document.querySelectorAll(
-            ".card text-white custom-control custom-checkbox custom-control-label"
-          );
-          console.log(test);
 
           // const test = document.querySelector(".card-body");
           // for (let i = 0; i< test.length; i++){
@@ -538,21 +526,6 @@ function renderImageGallery(
   rating,
   hiResPath
 ) {
-  // const markupImage =
-  // `<div class="col-12 col-sm-6 col-md-4 col-lg-3 item" >
-  //     <div class="card text-white custom-control custom-checkbox custom-control-label" data-rating="${rating}" >
-  //       <input type="checkbox" class="check custom-control-input" id="${src}">
-  //       <label class="custom-control-label" for="${src}">
-  //         <img class="card-img-top" src="${src}"  data-title="${title}" data-caption="${pictureComment}" data-rating="${rating}">
-  //         <i class="fa fa-check-circle"></i>
-  //       </label>
-  //       <div class="card-body">
-  //         <h5 class="card-title">${title}</h5>
-  //         <p class="card-text">${pictureComment.substring(0, 28) + "..."}</p>
-  //       </div>
-  //     </div>
-  // </div>`;
-  // imageGrid.innerHTML += markupImage;
 
   const div1 = document.createElement("div");
   div1.classList.add("col-12", "col-sm-6", "col-md-4", "col-lg-3", "item");
@@ -600,6 +573,7 @@ function renderImageGallery(
   const h57 = document.createElement("h5");
   h57.className = "card-title";
   h57.textContent = title;
+  h57.contentEditable = true;
 
   const p8 = document.createElement("p");
   p8.className = "card-text";
@@ -626,7 +600,6 @@ function renderImageGallery(
 
   imageGrid.appendChild(div1);
 
-  console.log(rating);
 
   // const stars = document.querySelectorAll(".stars-item");
   // starWrapper.onclick = (e) => {
@@ -696,7 +669,7 @@ function renderImageGallery(
   //     const picIndex = albumPicIndex.split("_")[1];
   //     // div.dataset.aIdx = albIndex;
   //     // div.dataset.pIdx = picIndex;
-  //     // editCommentEventListner(commentText, albIndex, picIndex, commentText);
+      // editCommentEventListner(commentText, albIndex, picIndex, commentText);
   //   }
 }
 
@@ -723,18 +696,18 @@ function renderImageGallery(
 // image gallery
 // init the state from the input
 
-// function editCommentEventListner(btn, albumIndex, pictureIndex, com) {
-//   btn.addEventListener("keypress", function (event) {
-//     if (event.key === "Enter") {
-//       event.preventDefault();
-//       const lib = JSON.parse(localStorage.getItem("pictureLibrary"));
-//       lib.albums[albumIndex].pictures[pictureIndex].comment = com.textContent;
-//       localStorage.setItem("pictureLibrary", JSON.stringify(lib));
+function editCommentEventListner(btn, albumIndex, pictureIndex, com) {
+  btn.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      const lib = JSON.parse(localStorage.getItem("pictureLibrary"));
+      lib.albums[albumIndex].pictures[pictureIndex].comment = com.textContent;
+      localStorage.setItem("pictureLibrary", JSON.stringify(lib));
 
-//       com.innerHTML = lib.albums[albumIndex].pictures[pictureIndex].comment;
-//     }
-//   });
-// }
+      com.innerHTML = lib.albums[albumIndex].pictures[pictureIndex].comment;
+    }
+  });
+}
 
 // function backToMainPageClicked(){
 //   let FlexTwoElements = document.querySelectorAll(".FlexItem-two");
