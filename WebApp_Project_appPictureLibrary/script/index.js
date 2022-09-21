@@ -69,14 +69,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         //   const lightboxModal = document.getElementById("lightbox-modal");
         //   const bsModal = new bootstrap.Modal(lightboxModal);
         //   const modalBody = document.querySelector(".modal-body .container-fluid");
-          
+
         //   let checkedItemsTrue = [];
         //   btn.addEventListener("click", function (e) {
         //     e.preventDefault();
         //     let checkedItems = document.querySelectorAll(
         //       "input[type='checkbox']:checked"
         //     );
-            
+
         //     for (const item of checkedItems) {
         //       if (item.checked == true) {
         //         checkedItemsTrue.push(item.id);
@@ -126,7 +126,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         //     return markup;
         //   }
 
-          
         // }
 
         //
@@ -134,46 +133,45 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (albumIndex == 4) {
           const links = document.querySelectorAll(".card");
           const imgs = document.querySelectorAll("img");
-          const h5 = document.querySelectorAll("h5");
-          const p = document.querySelectorAll("p");
           const lightboxModal = document.getElementById("lightbox-modal");
           const bsModal = new bootstrap.Modal(lightboxModal);
-          const modalBody = document.querySelector(".modal-body .container-fluid");
+          const modalBody = document.querySelector(
+            ".modal-body .container-fluid"
+          );
           const imgBtn = document.querySelector(".allImg");
-           const btn = document.querySelector(".selectedImg");
+          const btn = document.querySelector(".selectedImg");
 
           //when clicked "View All Images"-button, show all images in slide show
-          imgBtn.addEventListener("click", function(e){
+          imgBtn.addEventListener("click", function (e) {
             e.preventDefault();
             for (const link of links) {
-                const currentImg = link.querySelector("img");
-                const lightboxCarousel =
-                  document.getElementById("lightboxCarousel");
-                console.log("lightboxCarousel", lightboxCarousel);
-                if (lightboxCarousel) {
-                  const parentCol = link.parentElement.parentElement;
-                  console.log(link.parentElement.parentElement);
-                  const index = [...parentCol.parentElement.children].indexOf(
-                    parentCol
-                  );
-                  const bsCarousel = new bootstrap.Carousel(lightboxCarousel);
-                  bsCarousel.to(index);
-                } else {
-                  createCarousel(currentImg);
-                }
-                bsModal.show();
+              const currentImg = link.querySelector("img");
+              const lightboxCarousel =
+                document.getElementById("lightboxCarousel");
+              console.log("lightboxCarousel", lightboxCarousel);
+              if (lightboxCarousel) {
+                const parentCol = link.parentElement.parentElement;
+                console.log(link.parentElement.parentElement);
+                const index = [...parentCol.parentElement.children].indexOf(
+                  parentCol
+                );
+                const bsCarousel = new bootstrap.Carousel(lightboxCarousel);
+                bsCarousel.to(index);
+              } else {
+                createCarousel(currentImg);
+              }
+              bsModal.show();
             }
           });
 
-
-                  
           let checkedItemsTrue = [];
           btn.addEventListener("click", function (e) {
+            checkedItemsTrue = [];
             e.preventDefault();
             let checkedItems = document.querySelectorAll(
               "input[type='checkbox']:checked"
             );
-            
+
             for (const item of checkedItems) {
               if (item.checked == true) {
                 checkedItemsTrue.push(item.id);
@@ -184,8 +182,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             console.log(checkedItemsTrue);
           });
 
-
-
           function createCarousel(img) {
             console.log("img here", img);
 
@@ -193,6 +189,7 @@ document.addEventListener("DOMContentLoaded", async () => {
               <div id="lightboxCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000" >
                 <div class="carousel-inner">
                   ${createSlides(img)}
+                  
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#lightboxCarousel" data-bs-slide="prev">
                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -210,18 +207,22 @@ document.addEventListener("DOMContentLoaded", async () => {
           function createSlides(img) {
             let markup = "";
             const currentImgSrc = img.getAttribute("src");
-
             for (const img of imgs) {
               const imgSrc = img.getAttribute("src");
+              const imgCaption = img.getAttribute("data-caption");
+              const imgTitle = img.getAttribute("data-title");
+
               markup += `
               <div class="carousel-item${
                 currentImgSrc === imgSrc ? " active" : ""
               }">
+              ${imgTitle ? createTitle(imgTitle) : ""}
+
               <img src=${imgSrc} >
+              ${imgCaption ? createCaption(imgCaption) : ""}
               </div>
               `;
             }
-
             return markup;
           }
 
@@ -231,7 +232,11 @@ document.addEventListener("DOMContentLoaded", async () => {
               </div>`;
           }
 
-
+          function createTitle(title) {
+            return `<div class="carousel-title">
+               <h5 >${title}</h5>
+              </div>`;
+          }
 
           function createCarouselSecond(img) {
             console.log("img here", img);
@@ -445,13 +450,14 @@ function renderImageGallery(
 <div class="card text-white custom-control custom-checkbox custom-control-label" >
 <input type="checkbox" class="check custom-control-input" id="${src}">
 <label class="custom-control-label" for="${src}">
-<img class="card-img-top" src="${src}" alt="Card image cap">
+<img class="card-img-top" src="${src}"  data-title="${title}" data-caption="${pictureComment}">
+<i class="fa fa-check-circle"></i>
+</label>
 <div class="card-body">
   <h5 class="card-title">${title}</h5>
   <p class="card-text";">${pictureComment.substring(0, 28) + "..."}</p>
 </div>
-<i class="fa fa-check-circle"></i>
-</label>
+
 </div>
 </div>`;
 
