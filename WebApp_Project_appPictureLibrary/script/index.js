@@ -643,16 +643,6 @@ function renderImageGallery(
   div6.appendChild(titleH5);
   div6.appendChild(p8);
 
-  // const starsDiv = document.createElement("div");
-  // starsDiv.className = "stars";
-
-  // for (let i = 0; i < rating; i++) {
-  //   const stars = document.createElement("a");
-  //   stars.className = "stars-item";
-  //   starsDiv.appendChild(stars);
-  // }
-  // div6.appendChild(starsDiv);
-
   const starsDiv = document.createElement("div");
   starsDiv.setAttribute("id", "rating");
 
