@@ -148,14 +148,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         
           const ratingDiv = document.querySelectorAll("#rating");
           ratingDiv.forEach((star, clickedix) => {
-          
-            console.log(clickedix);
-  
             star.addEventListener("click", function (e) {
-              console.log(this);
               let action = "add";
               let counter = 0;
-              console.log(clickedix);
               for (const span of this.children) {
                 span.classList[action]("active");
                 if (span.classList.value == "active"){
@@ -164,8 +159,14 @@ document.addEventListener("DOMContentLoaded", async () => {
                 
                 if (span === e.target) action = "remove";
               }
-              console.log(counter);
-            });
+              console.log("albumid " + star.dataset.albumId);
+              console.log("picid " + star.dataset.pictureId);
+              console.log("clicked rating " + counter);
+                    const lib = JSON.parse(localStorage.getItem("pictureLibrary"));
+                    console.log("clicked images current rating " + lib.albums[star.dataset.albumId].pictures[star.dataset.pictureId].rating);
+                    lib.albums[star.dataset.albumId].pictures[star.dataset.pictureId].rating = counter;
+                   localStorage.setItem("pictureLibrary", JSON.stringify(lib));
+              });
           });
 
 
@@ -629,8 +630,6 @@ function renderImageGallery(
   p8.classList.add("card-text");
   p8.textContent = pictureComment;
   p8.contentEditable = true;
-  // p8.textContent = pictureComment.substring(0, 28) + "...";
-  // p8.addEventListener("click", toggleText(p8));
   toggleText(p8);
 
   const btn = document.createElement("button");
@@ -664,20 +663,6 @@ function renderImageGallery(
   div2.appendChild(div6);
 
   div1.appendChild(div2);
-
-
-  //  const starWrapper = document.querySelectorAll(".stars");
-  //    const stars = document.querySelectorAll(".stars-item");
-  //    console.log(starWrapper);
-  //    console.log(stars);
-  //    starWrapper.onclick = (e) => {
-  //      const elClass = e.target.classList;
-  //      if (!elClass.contains("active")) {
-  //        stars.forEach((star) => star.classList.remove("active"));
-  //        console.log(e.target.getAttribute("data-rate"));
-  //        elClass.add("active");
-  //      }
-  //    };
 
   imageGrid.appendChild(div1);
 
@@ -762,6 +747,8 @@ function renderImageGallery(
   //   //     // commentText.dataset.index = albumPicIndex;
   const albIndex0 = albumPicIndex.split("_")[0];
   const picIndex1 = albumPicIndex.split("_")[1];
+  starsDiv.dataset.albumId = albIndex0;
+  starsDiv.dataset.pictureId = picIndex1;
   //   //     // div.dataset.aIdx = albIndex;
   //   //     // div.dataset.pIdx = picIndex;
   editTitleEventListner(titleH5, albIndex0, picIndex1, titleH5);
@@ -784,6 +771,18 @@ function editTitleEventListner(tH5, albumIndex, pictureIndex, titleH5) {
 
       titleH5.innerHTML = lib.albums[albumIndex].pictures[pictureIndex].title;
     }
+  });
+}
+
+function editRatingEventListner(tH5, albumIndex, pictureIndex, titleH5) {
+  tH5.addEventListener("click", function (event) {
+      event.preventDefault();
+      const lib = JSON.parse(localStorage.getItem("pictureLibrary"));
+      lib.albums[albumIndex].pictures[pictureIndex].rating = titleH5.innerHTML;
+      localStorage.setItem("pictureLibrary", JSON.stringify(lib));
+
+      titleH5.innerHTML = lib.albums[albumIndex].pictures[pictureIndex].rating;
+    
   });
 }
 
