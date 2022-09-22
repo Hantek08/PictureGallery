@@ -144,21 +144,46 @@ document.addEventListener("DOMContentLoaded", async () => {
           const imgBtn = document.querySelector(".allImg");
           const btn = document.querySelector(".selectedImg");
 
+
+        
           const ratingDiv = document.querySelectorAll("#rating");
           ratingDiv.forEach((star, clickedix) => {
+          
+            console.log(clickedix);
+  
             star.addEventListener("click", function (e) {
+              console.log(this);
               let action = "add";
               let counter = 0;
+              console.log(clickedix);
               for (const span of this.children) {
                 span.classList[action]("active");
                 if (span.classList.value == "active"){
                   counter++;
                 }
+                
                 if (span === e.target) action = "remove";
               }
               console.log(counter);
             });
           });
+
+
+
+
+          // const ratingD = document.querySelector("#rating");
+          // const st = document.querySelectorAll("#rating span");
+          // st.forEach((star, clickedIdx) => {
+          //   star.addEventListener("click", () => {
+          //     ratingD.classList.add("disabled")
+          //     st.forEach((otherStar, otherIdx) => {
+          //       if (otherIdx <= clickedIdx) {
+          //         otherStar.classList.add("active");
+          //       }
+          //     });
+          //     console.log(clickedIdx);
+          //   })
+          // });
 
           
           // const test = document.querySelector(".card-body");
@@ -199,6 +224,8 @@ document.addEventListener("DOMContentLoaded", async () => {
           //     bsModal.show();
           //   }
           // });
+
+   
 
           let checkedItemsTrue = [];
           btn.addEventListener("click", function (e) {
@@ -571,6 +598,7 @@ function renderImageGallery(
   input2.dataset.pictureindex = picIndex;
   input2.dataset.comment = pictureComment;
   input2.dataset.title = title;
+  input2.dataset.rating = rating;
 
   const label3 = document.createElement("label");
   label3.classList.add("custom-control-label");
@@ -628,13 +656,12 @@ function renderImageGallery(
   const starsDiv = document.createElement("div");
   starsDiv.setAttribute("id", "rating");
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 5; i++){
     const span = document.createElement("span");
+    if (i < rating){
+      span.className = "active";
+    }
     starsDiv.appendChild(span);
-  }
-
-  for (let i = 0; i < rating; i++) {
-    let stars = document.querySelectorAll;
   }
 
   div6.appendChild(starsDiv);
@@ -647,6 +674,7 @@ function renderImageGallery(
   div2.appendChild(div6);
 
   div1.appendChild(div2);
+
 
   //  const starWrapper = document.querySelectorAll(".stars");
   //    const stars = document.querySelectorAll(".stars-item");
@@ -662,6 +690,31 @@ function renderImageGallery(
   //    };
 
   imageGrid.appendChild(div1);
+
+  //   console.log(ratingDiv);
+  //   ratingDiv.children.className = "active";
+  //   for (const span of ratingDiv.children){
+  //     span.classList["add"]("active");
+  //   }
+
+  
+          //   const ratingDiv = document.querySelectorAll("#rating");
+          // ratingDiv.forEach((star, clickedix) => {
+          //   star.addEventListener("click", function (e) {
+          //     let action = "add";
+          //     let counter = 0;
+          //     console.log(clickedix);
+          //     for (const span of this.children) {
+          //       span.classList[action]("active");
+          //       if (span.classList.value == "active"){
+          //         counter++;
+          //       }
+                
+          //       if (span === e.target) action = "remove";
+          //     }
+          //     console.log(counter);
+          //   });
+          // });
 
   // const div1 = document.createElement("div");
   // div1.classList.add("col-12", "col-sm-6", "col-md-4", "col-lg-3", "item");
@@ -725,6 +778,7 @@ function renderImageGallery(
   editCommentEventListner(p8, albIndex0, picIndex1, p8);
 
   // }
+
 }
 function toggleText(paragraph) {
   paragraph.classList.toggle("truncate");
