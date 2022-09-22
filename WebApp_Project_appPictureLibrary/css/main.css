@@ -377,3 +377,10 @@ a:hover {
 .selectedImg.circular {
   border-radius: 50em !important;
 }
+
+/*Truncate*/
+.truncate {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}

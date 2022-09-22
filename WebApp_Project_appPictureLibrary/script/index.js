@@ -15,10 +15,10 @@ let currentImg = 0;
 document.addEventListener("DOMContentLoaded", async () => {
   library = await lib.pictureLibraryBrowser.fetchJSON(libraryJSON); //reading library from JSON on local server
 
-  //   if (localStorage.getItem("pictureLibrary") == null) {
-  //     localStorage.setItem("pictureLibrary", JSON.stringify(library));
-  //   }
-  localStorage.setItem("pictureLibrary", JSON.stringify(library));
+  if (localStorage.getItem("pictureLibrary") == null) {
+    localStorage.setItem("pictureLibrary", JSON.stringify(library));
+  }
+  // localStorage.setItem("pictureLibrary", JSON.stringify(library));
   const libraryFromLocalStorage = localStorage.getItem("pictureLibrary");
   const parsedLibrary = JSON.parse(libraryFromLocalStorage);
   const albums = parsedLibrary.albums;
@@ -311,32 +311,53 @@ document.addEventListener("DOMContentLoaded", async () => {
               const imgSrc = img.hires;
               const title = img.title;
               const comment = img.comment;
+              const albInx = img.albumIdx;
+              const picInx = img.pictureIdx;
+              console.log("here is picInx", picInx);
               markup += `
               <div class="carousel-item${
                 currentImgSrc === imgSrc ? " active" : ""
               }">
-              ${title ? createTitleSecond(title) : ""}
+              ${title ? createTitleSecond(title, albInx, picInx) : ""}
 
               <img src=${imgSrc} >
-              ${comment ? createCaptionSecond(comment) : ""}
+              ${comment ? createCaptionSecond(comment, albInx, picInx) : ""}
               </div>
               `;
             }
+            const com = document.querySelectorAll("p.m-0.p-text");
 
             return markup;
           }
 
-          function createCaptionSecond(caption) {
+          function createCaptionSecond(caption, aIndex, pIndex) {
             return `<div class="carousel-caption">
-               <p class="m-0">${caption}</p>
+               <p class="m-0 p-text" data-aindex = "${aIndex}" data-pindex = "${pIndex}">${caption}</p>
               </div>`;
           }
 
-          function createTitleSecond(title) {
+          function createTitleSecond(title, aIndex, pIndex) {
             return `<div class="carousel-title">
                <h5 >${title}</h5>
               </div>`;
           }
+        }
+
+        function editCommentEventListner(p, albumIndex, pictureIndex, p8) {
+          console.log("p here ", p);
+
+          p.addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+              event.preventDefault();
+              const lib = JSON.parse(localStorage.getItem("pictureLibrary"));
+              lib.albums[albumIndex].pictures[pictureIndex].comment =
+                p8.textContent;
+              localStorage.setItem("pictureLibrary", JSON.stringify(lib));
+
+              p8.innerHTML =
+                lib.albums[albumIndex].pictures[pictureIndex].comment;
+            }
+          });
         }
 
         // function ratingEventListener (albumIndex, pictureIndex, rating) {
@@ -597,15 +618,29 @@ function renderImageGallery(
   div6.className = "card-body";
   div6.dataset.rating = rating;
 
-  const h57 = document.createElement("h5");
-  h57.className = "card-title";
-  h57.textContent = title;
+  const titleH5 = document.createElement("h5");
+  titleH5.className = "card-title";
+
+  titleH5.textContent = title;
+  titleH5.contentEditable = true;
+  // titleH5.dataset.index = albumPicIndex;
 
   const p8 = document.createElement("p");
-  p8.className = "card-text";
-  p8.textContent = pictureComment.substring(0, 28) + "...";
+  p8.classList.add("card-text");
+  p8.textContent = pictureComment;
+  p8.contentEditable = true;
+  // p8.textContent = pictureComment.substring(0, 28) + "...";
+  // p8.addEventListener("click", toggleText(p8));
+  toggleText(p8);
 
-  div6.appendChild(h57);
+  const btn = document.createElement("button");
+  btn.textContent = "click";
+  btn.onclick = function () {
+    toggleText(p8);
+  };
+  div6.appendChild(btn);
+
+  div6.appendChild(titleH5);
   div6.appendChild(p8);
 
   for (let i = 0; i < rating; i++) {
@@ -689,17 +724,58 @@ function renderImageGallery(
 
   //   imageGrid.innerHTML += markupImage;
 
-  //   if (!isAlbum) {
-  //     // commentText.contentEditable = true;
-  //     // commentText.dataset.index = albumPicIndex;
-  //     const albIndex = albumPicIndex.split("_")[0];
-  //     const picIndex = albumPicIndex.split("_")[1];
-  //     // div.dataset.aIdx = albIndex;
-  //     // div.dataset.pIdx = picIndex;
-  //     // editCommentEventListner(commentText, albIndex, picIndex, commentText);
-  //   }
+  // if (!isAlbum) {
+  //   //     // commentText.contentEditable = true;
+  //   //     // commentText.dataset.index = albumPicIndex;
+  const albIndex0 = albumPicIndex.split("_")[0];
+  const picIndex1 = albumPicIndex.split("_")[1];
+  //   //     // div.dataset.aIdx = albIndex;
+  //   //     // div.dataset.pIdx = picIndex;
+  editTitleEventListner(titleH5, albIndex0, picIndex1, titleH5);
+  editCommentEventListner(p8, albIndex0, picIndex1, p8);
+
+  // }
+}
+function toggleText(paragraph) {
+  paragraph.classList.toggle("truncate");
 }
 
+// function toggleText(paragraph) {
+//   document.querySelectorAll("card-text");
+//   paragraph.forEach((p) => {
+//     p.classList.toggle("truncate");
+//   });
+// }
+
+function editTitleEventListner(tH5, albumIndex, pictureIndex, titleH5) {
+  console.log("here is th5", tH5);
+  tH5.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      const lib = JSON.parse(localStorage.getItem("pictureLibrary"));
+      lib.albums[albumIndex].pictures[pictureIndex].title = titleH5.textContent;
+      localStorage.setItem("pictureLibrary", JSON.stringify(lib));
+
+      titleH5.innerHTML = lib.albums[albumIndex].pictures[pictureIndex].title;
+      console.log("titleH5 here ", titleH5);
+    }
+  });
+}
+
+function editCommentEventListner(p, albumIndex, pictureIndex, p8) {
+  p.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      const lib = JSON.parse(localStorage.getItem("pictureLibrary"));
+      lib.albums[albumIndex].pictures[pictureIndex].comment = p8.textContent;
+      localStorage.setItem("pictureLibrary", JSON.stringify(lib));
+
+      p8.innerHTML = lib.albums[albumIndex].pictures[pictureIndex].comment;
+
+      console.log("p8 here ", p8);
+    }
+  });
+}
 // const btn = document.querySelector("button");
 
 // btn.addEventListener("click", function () {
