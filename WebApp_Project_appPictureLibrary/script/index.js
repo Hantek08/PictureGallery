@@ -148,14 +148,19 @@ document.addEventListener("DOMContentLoaded", async () => {
           ratingDiv.forEach((star, clickedix) => {
             star.addEventListener("click", function (e) {
               let action = "add";
+              let counter = 0;
               for (const span of this.children) {
                 span.classList[action]("active");
+                if (span.classList.value == "active"){
+                  counter++;
+                }
                 if (span === e.target) action = "remove";
-                console.log(clickedix);
               }
+              console.log(counter);
             });
           });
 
+          
           // const test = document.querySelector(".card-body");
           // for (let i = 0; i< test.length; i++){
           //   console.log(test[i].dataset.rating);
@@ -725,15 +730,7 @@ function toggleText(paragraph) {
   paragraph.classList.toggle("truncate");
 }
 
-// function toggleText(paragraph) {
-//   document.querySelectorAll("card-text");
-//   paragraph.forEach((p) => {
-//     p.classList.toggle("truncate");
-//   });
-// }
-
 function editTitleEventListner(tH5, albumIndex, pictureIndex, titleH5) {
-  console.log("here is th5", tH5);
   tH5.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
       event.preventDefault();
@@ -742,7 +739,6 @@ function editTitleEventListner(tH5, albumIndex, pictureIndex, titleH5) {
       localStorage.setItem("pictureLibrary", JSON.stringify(lib));
 
       titleH5.innerHTML = lib.albums[albumIndex].pictures[pictureIndex].title;
-      console.log("titleH5 here ", titleH5);
     }
   });
 }
