@@ -64,11 +64,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.querySelector(".image-grid").style.display = "flex";
 
         }
-        
-
-        
-        
-        //SHOW ALL IMAGES IN ALBUM SLIDESHOW
+                  
+       //SHOW ALL IMAGES IN ALBUM SLIDESHOW
         
         if (albumIndex == 4) {
           albumGrid.style.display = "none";
