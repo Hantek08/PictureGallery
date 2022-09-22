@@ -61,79 +61,34 @@ document.addEventListener("DOMContentLoaded", async () => {
               `${albums[albumIndex].path}/${pictures[pictureIndex].imgHiRes}`
             );
           }
+        document.querySelector(".image-grid").style.display = "flex";
+
         }
-        albumGrid.style.display = "none";
+        
 
-        // //SHOW SELECTED IMAGES
-        // if (albumIndex == 4) {
-        //   const imgGrid = document.querySelector(".image-grid");
-        //   const btn = document.querySelector(".selectedImg");
-        //   const lightboxModal = document.getElementById("lightbox-modal");
-        //   const bsModal = new bootstrap.Modal(lightboxModal);
-        //   const modalBody = document.querySelector(".modal-body .container-fluid");
-
-        //   let checkedItemsTrue = [];
-        //   btn.addEventListener("click", function (e) {
-        //     e.preventDefault();
-        //     let checkedItems = document.querySelectorAll(
-        //       "input[type='checkbox']:checked"
-        //     );
-
-        //     for (const item of checkedItems) {
-        //       if (item.checked == true) {
-        //         checkedItemsTrue.push(item.id);
-        //         createCarousel(item.id);
-        //       }
-        //     }
-        //     bsModal.show();
-        //     console.log(checkedItemsTrue);
-        //   });
-
-        //    function createCarousel(img) {
-        //     console.log("img here", img);
-
-        //     const markup = `
-        //       <div id="lightboxCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000" >
-        //         <div class="carousel-inner">
-        //           ${createSlides(img)}
-        //         </div>
-        //         <button class="carousel-control-prev" type="button" data-bs-target="#lightboxCarousel" data-bs-slide="prev">
-        //          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        //          <span class="visually-hidden">Previous</span>
-        //         </button>
-        //         <button class="carousel-control-next" type="button" data-bs-target="#lightboxCarousel" data-bs-slide="next">
-        //           <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        //           <span class="visually-hidden">Next</span>
-        //         </button>
-        //       </div>
-        //       `;
-        //     modalBody.innerHTML = markup;
-        //   }
-
-        //   function createSlides(img) {
-        //     let markup = "";
-        //     const currentImgSrc = img;
-
-        //     for (const img of checkedItemsTrue) {
-        //       const imgSrc = img;
-        //       markup += `
-        //       <div class="carousel-item${
-        //         currentImgSrc === imgSrc ? " active" : ""
-        //       }">
-        //       <img src=${imgSrc} >
-        //       </div>
-        //       `;
-        //     }
-
-        //     return markup;
-        //   }
-
-        // }
-
-        //
+        
+        
         //SHOW ALL IMAGES IN ALBUM SLIDESHOW
-
+        
         if (albumIndex == 4) {
+          albumGrid.style.display = "none";
+
+const parentdiv = document.querySelector(".selectedImg").parentNode;
+const imgdiv = document.querySelector(".selectedImg");
+const newbtn = document.createElement("button");
+newbtn.setAttribute("class", "selectedImg circular");
+newbtn.textContent = "View selected image";
+parentdiv.insertBefore(newbtn, imgdiv);
+
+const anotherbtn = document.createElement("button");
+anotherbtn.setAttribute("id", "selectedImg");
+parentdiv.insertBefore(anotherbtn, imgdiv);
+anotherbtn.textContent = "Back";
+anotherbtn.onclick = function() {
+  backToMainPageClicked();
+}
+
+
           const links = document.querySelectorAll(".card");
           const imgs = document.querySelectorAll("img");
           const lightboxModal = document.getElementById("lightbox-modal");
@@ -170,64 +125,6 @@ document.addEventListener("DOMContentLoaded", async () => {
           });
 
 
-
-
-          // const ratingD = document.querySelector("#rating");
-          // const st = document.querySelectorAll("#rating span");
-          // st.forEach((star, clickedIdx) => {
-          //   star.addEventListener("click", () => {
-          //     ratingD.classList.add("disabled")
-          //     st.forEach((otherStar, otherIdx) => {
-          //       if (otherIdx <= clickedIdx) {
-          //         otherStar.classList.add("active");
-          //       }
-          //     });
-          //     console.log(clickedIdx);
-          //   })
-          // });
-
-          
-          // const test = document.querySelector(".card-body");
-          // for (let i = 0; i< test.length; i++){
-          //   console.log(test[i].dataset.rating);
-          //    let stars = document.createElement("a");
-          //   stars.setAttribute("class", "stars-item");
-          //   test.appendChild(stars);
-          // }
-
-          // console.log(test.dataset)
-
-          // for (let i = 0; i < test.dataset.rating; i++){
-          //   let stars = document.createElement("a");
-          //   stars.setAttribute("class", "stars-item");
-          //   test.appendChild(stars);
-          // }
-
-          //when clicked "View All Images"-button, show all images in slide show
-          // imgBtn.addEventListener("click", function (e) {
-          //   e.preventDefault();
-          //   for (const link of links) {
-          //     const currentImg = link.querySelector("img");
-          //     const lightboxCarousel =
-          //       document.getElementById("lightboxCarousel");
-          //     console.log("lightboxCarousel", lightboxCarousel);
-          //     if (lightboxCarousel) {
-          //       const parentCol = link.parentElement.parentElement;
-          //       console.log(link.parentElement.parentElement);
-          //       const index = [...parentCol.parentElement.children].indexOf(
-          //         parentCol
-          //       );
-          //       const bsCarousel = new bootstrap.Carousel(lightboxCarousel);
-          //       bsCarousel.to(index);
-          //     } else {
-          //       createCarousel(currentImg);
-          //     }
-          //     bsModal.show();
-          //   }
-          // });
-
-   
-
           let checkedItemsTrue = [];
           btn.addEventListener("click", function (e) {
             checkedItemsTrue = [];
@@ -247,9 +144,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                   comment: item.dataset.comment,
                 };
                 checkedItemsTrue.push(obj);
-                //    const obj = ({ hires: item.dataset.hires, id: item.dataset.id, album: item.dataset.albumindex, picture: item.dataset.picindex});
-                // checkedItemsTrue.push(obj);
-                // checkedItemsTrue.push(item.id);
                 createCarouselSecond(obj);
                 console.log(checkedItems);
               }
@@ -376,164 +270,13 @@ document.addEventListener("DOMContentLoaded", async () => {
           }
         }
 
-        // function ratingEventListener (albumIndex, pictureIndex, rating) {
-
-        // // RATING TEST!!
-
-        // this.rating = rating;
-        // const starWrapper = document.querySelector(".stars");
-        // const stars = document.querySelectorAll(".stars a");
-
-        // stars.forEach((star, clickedIdx) => {
-        //   star.addEventListener("click", () => {
-        //     starWrapper.classList.add("disabled")
-        //     stars.forEach((otherStar,otherIdx) =>{
-        //       if (otherIdx <= clickedIdx) {
-        //         otherStar.classList.add("active")
-        //       }
-        //     });
-        //     // Här ska man spara ratingen!
-        //      const lib = JSON.parse(localStorage.getItem("pictureLibrary"));
-        //        lib.albums[albumIndex].pictures[pictureIndex].rating = clickedIdx;
-        //        localStorage.setItem("pictureLibrary", JSON.stringify(lib));
-
-        //        console.log(`star of index ${clickedIdx +1} was clicked`);
-
-        //     //   com.innerHTML = lib.albums[albumIndex].pictures[pictureIndex].comment;
-        //   });
-
-        // });
-        // }
-
-        // for (var i = 0; i < secondElements.length; i++) {
-        //   secondElements[i].style.display = "grid";
-        // }
-        // let h2 = document.querySelector(".Gallery-Title");
-        // h2.textContent = this.dataset.title;
-        // var btn = document.createElement("button");
-        // btn.setAttribute("id", "backToMainButton");
-        // btn.onclick = function () {
-        //   backToMainPageClicked();
-        // };
-        // btn.textContent = "Back";
-        // h2.appendChild(btn);
       });
     }
   }
-
-  //   var modal = document.getElementById("myModal");
-  //   var modalImg = document.getElementById("img01");
-  //   var pictureComment = document.getElementById("caption");
-  //   var picTitle = document.createElement("h2");
-  //   var nextButton = document.createElement("button");
-
-  //   pictureComment.setAttribute("contenteditable", "true");
-  //   picTitle.setAttribute("contenteditable", "true");
-
-  //   nextButton.setAttribute("value", "next");
-  //   nextButton.setAttribute("class", "nextButton");
-  //   picTitle.setAttribute("class", "pictureTitle");
-  //   modal.appendChild(picTitle);
-  //   modal.appendChild(nextButton);
-
-  //   let images = document.querySelectorAll(".FlexItem");
-
-  //   images.forEach(function (img) {
-  //     img.onclick = function () {
-  //       albumCollection = {};
-  //       testAlbumCollection = [];
-
-  //       const container = document.querySelector(".Flex-two");
-  //       removeAllChildNodes(container);
-  //       for (const album of library.albums) {
-  //         for (const picture of album.pictures) {
-  //           if (album.path === this.dataset.albumPath) {
-  //             renderImageGallery(
-  //               `${this.dataset.albumPath}/${picture.imgLoRes}`,
-  //               picture.comment,
-  //               `${this.dataset.albumPath}/${picture.imgHiRes}`,
-  //               `${this.dataset.albumPath}/${picture.imgLoRes}`,
-  //               picture.title,
-  //               picture.id
-  //             );
-  //           }
-  //         }
-  //       }
-
-  //       let galleryImg = document.querySelectorAll(".FlexItem-two");
-
-  //       //Open image modal
-  //       galleryImg.forEach(function (img) {
-  //         console.log(img);
-  //         img.onclick = function () {
-  //           modal.style.display = "inline-block";
-  //           pictureComment.innerHTML = this.dataset.imgComment;
-  //           picTitle.innerHTML = this.dataset.pictureTitle;
-  //           modalImg.src = this.dataset.imgResPath;
-  //           //console.log(pictureComment.textContent);
-  //           // pictureComment.addEventListener("keypress", function (event) {
-  //           //   if (event.key === "Enter") {
-  //           //     event.preventDefault();
-  //           //     const lib = JSON.parse(localStorage.getItem("pictureLibrary"));
-  //           //     lib.albums[albumIndex].pictures[pictureIndex].comment = com.textContent;
-  //           //     localStorage.setItem("pictureLibrary", JSON.stringify(lib));
-
-  //           //     com.innerHTML = lib.albums[albumIndex].pictures[pictureIndex].comment;
-  //           //   }
-  //           // });
-  //         };
-
-  //         // addEventListener("keypress", function (event) {
-  //         //   if (event.key === "Enter") {
-  //         //     event.preventDefault();
-  //         //     const lib = JSON.parse(localStorage.getItem("pictureLibrary"));
-  //         //     lib.albums[albumIndex].pictures[pictureIndex].comment = com.textContent;
-  //         //     localStorage.setItem("pictureLibrary", JSON.stringify(lib));
-
-  //         //     com.innerHTML = lib.albums[albumIndex].pictures[pictureIndex].comment;
-  //         //   }
-  //         // });
-
-  //         var span = document.getElementsByClassName("close")[0];
-
-  //         // When the user clicks on <span> (x), close the modal
-  //         span.onclick = function () {
-  //           modal.style.display = "none";
-  //           currentImg = 2;
-  //         };
-  //       });
-
-  //       //NEXT IMAGE ON BTN CLICK
-  //       nextButton.onclick = function () {
-  //         if (currentImg < testAlbumCollection.length) {
-  //           modalImg.src = testAlbumCollection[currentImg].hiResPath;
-  //           pictureComment.innerHTML = testAlbumCollection[currentImg].comment;
-  //           picTitle.innerHTML = testAlbumCollection[currentImg].title;
-  //           currentImg++;
-
-  //           if (currentImg === testAlbumCollection.length) {
-  //             modalImg.src =
-  //               testAlbumCollection[testAlbumCollection.length - 1].hiResPath;
-  //             currentImg = 0;
-  //           }
-  //         }
-  //       };
-  //     };
-  //   });
 });
-// function backToMainPageClicked() {
-//   let FlexTwoElements = document.querySelectorAll(".Flex-two");
-//   for (var i = 0; i < FlexTwoElements.length; i++) {
-//     FlexTwoElements[i].style.display = "none";
-//   }
-//   document.querySelector("#backToMainButton").remove();
-//   document.querySelector(".Gallery-Title").textContent = "";
 
-//   let FlexWrapElements = document.querySelectorAll(".FlexItem");
-//   for (var i = 0; i < FlexWrapElements.length; i++) {
-//     FlexWrapElements[i].style.display = "block";
-//   }
-// }
+
+
 const albumGrid = document.querySelector(".album-grid .container-xxl .row");
 const imageGrid = document.querySelector(".image-grid .container-xxl .row");
 //Render Album
@@ -666,95 +409,15 @@ function renderImageGallery(
 
   imageGrid.appendChild(div1);
 
-  //   console.log(ratingDiv);
-  //   ratingDiv.children.className = "active";
-  //   for (const span of ratingDiv.children){
-  //     span.classList["add"]("active");
-  //   }
-
   
-          //   const ratingDiv = document.querySelectorAll("#rating");
-          // ratingDiv.forEach((star, clickedix) => {
-          //   star.addEventListener("click", function (e) {
-          //     let action = "add";
-          //     let counter = 0;
-          //     console.log(clickedix);
-          //     for (const span of this.children) {
-          //       span.classList[action]("active");
-          //       if (span.classList.value == "active"){
-          //         counter++;
-          //       }
-                
-          //       if (span === e.target) action = "remove";
-          //     }
-          //     console.log(counter);
-          //   });
-          // });
-
-  // const div1 = document.createElement("div");
-  // div1.classList.add("col-12", "col-sm-6", "col-md-4", "col-lg-3", "item");
-  // const div2 = document.createElement("div");
-  // div2.classList.add("card", "text-white");
-  // const img = document.createElement("img");
-  // img.className = "card-img-top";
-  // img.src = src;
-  // const div3 = document.createElement("div");
-  // div3.className = "card-body";
-  // const h5 = document.createElement("h5");
-  // h5.className = "card-title";
-  // h5.textContent = title;
-
-  // const fullComment = pictureComment;
-
-  // const picCom = document.createElement("p");
-  // picCom.className = "card-text";
-  // picCom.textContent = fullComment.substring(0, 35) + "...";
-
-  // div3.appendChild(h5);
-  // div3.appendChild(picCom);
-  // div2.appendChild(img);
-  // div2.appendChild(div3);
-  // div1.appendChild(div2);
-  // imageGrid.appendChild(div1);
-
-  // // if (!isAlbum) {
-  // //   commentText.contentEditable = true;
-  // //   commentText.dataset.index = albumPicIndex;
-  // //   const albIndex = albumPicIndex.split("_")[0];
-  // //   const picIndex = albumPicIndex.split("_")[1];
-  // //   div.dataset.aIdx = albIndex;
-  // //   div.dataset.pIdx = picIndex;
-  // //   editCommentEventListner(commentText, albIndex, picIndex, commentText);
-  // //   //
-  // // }
-  // const imgFlex = document.querySelector(".image-grid");
-  // imgFlex.appendChild(div);
-
-  //   const markupImage = `<div class="col-12 col-sm-6 col-md-4 col-lg-3 item">
-  //   <div class="card text-white" >
-  //   <img class="card-img-top" src="${src}" alt="Card image cap">
-  //   <div class="card-body">
-  //     <h5 class="card-title">${title}</h5>
-  //     <p class="card-text";">${pictureComment.substring(0, 28) + "..."}</p>
-  //   </div>
-  // </div>
-  //   </div>`;
-
-  //   imageGrid.innerHTML += markupImage;
-
-  // if (!isAlbum) {
-  //   //     // commentText.contentEditable = true;
-  //   //     // commentText.dataset.index = albumPicIndex;
   const albIndex0 = albumPicIndex.split("_")[0];
   const picIndex1 = albumPicIndex.split("_")[1];
   starsDiv.dataset.albumId = albIndex0;
   starsDiv.dataset.pictureId = picIndex1;
-  //   //     // div.dataset.aIdx = albIndex;
-  //   //     // div.dataset.pIdx = picIndex;
+
   editTitleEventListner(titleH5, albIndex0, picIndex1, titleH5);
   editCommentEventListner(p8, albIndex0, picIndex1, p8);
 
-  // }
 
 }
 function toggleText(paragraph) {
@@ -800,110 +463,13 @@ function editCommentEventListner(p, albumIndex, pictureIndex, p8) {
     }
   });
 }
-// const btn = document.querySelector("button");
-
-// btn.addEventListener("click", function () {
-//   e.preventDefault();
-//   let checkedItems = document.querySelectorAll("input[type='checkbox']:checked");
-//   //console.clear();
-//    let checkedItemsTrue = [];
-
-//    checkedItems.forEach(function(cb){
-//     console.log(cb.value);
-
-// for(const item of checkedItems){
-
-//     if(item.checked == true){
-
-//         checkedItemsTrue.push(item.value);
-//     }
-//   }
-// });
-
-// image gallery
-// init the state from the input
-
-
-// function backToMainPageClicked(){
-//   let FlexTwoElements = document.querySelectorAll(".FlexItem-two");
-//   for (var i = 0; i < FlexTwoElements.length; i++) {
-//        FlexTwoElements[i].style.display = "none";
-//      }
-//    document.querySelector("#backToMainButton").remove();
-//    document.querySelector(".Gallery-Title").textContent = "";
-
-//    let FlexWrapElements = document.querySelectorAll(".FlexItem");
-//     for (var i = 0; i < FlexWrapElements.length; i++) {
-//        FlexWrapElements[i].style.display = "block";
-//      }
-// }
-
-// function removeAllChildNodes(parent) {
-//  while (parent.firstChild) {
-//      parent.removeChild(parent.firstChild);
-//  }
-// }
-
-// function renderImageGallery(
-//   src,
-//   comment,
-//   hiResPath,
-//   loResPath,
-//   title,
-//   id,
-//   albumPicIndex
-// ) {
-//   const div = document.createElement("div");
-//   div.className = "FlexItem-two";
-//   // div.dataset.imgComment = comment;
-//   div.dataset.pictureTitle = title;
-//   div.dataset.picId = id;
-//   let arrObj1 = { comment: comment, hiResPath: hiResPath, title: title };
-
-//   testAlbumCollection.push(arrObj1);
-
-//   let testString = hiResPath;
-//   const idx = testString.lastIndexOf("/");
-//   const newString = testString.slice(idx, testString.length);
-
-//   if (newString === "/undefined") {
-//     div.dataset.imgResPath = loResPath;
-//     albumCollection[title] = loResPath;
-//   } else {
-//     div.dataset.imgResPath = hiResPath;
-//     albumCollection[title] = hiResPath;
-//   }
-
-//   const commentDiv = document.createElement("div");
-//   const commentDivText = document.createElement("p");
-
-//   const fullComment = comment;
-//   commentDivText.textContent = fullComment.substring(0, 28) + "...";
-//   commentDiv.appendChild(commentDivText);
-//   div.appendChild(commentDiv);
-
-//   const img = document.createElement("img");
-//   img.src = src;
-//   div.appendChild(img);
-
-//   const imgFlex = document.querySelector(".Flex-two");
-//   console.log(albumPicIndex);
-
-//   // pictureComment.addEventListener("keypress", function (event) {
-//   //   if (event.key === "Enter") {
-//   //     event.preventDefault();
-//   //     const lib = JSON.parse(localStorage.getItem("pictureLibrary"));
-//   //     lib.albums[albumIndex].pictures[pictureIndex].comment = com.textContent;
-//   //     localStorage.setItem("pictureLibrary", JSON.stringify(lib));
-
-//   //     com.innerHTML = lib.albums[albumIndex].pictures[pictureIndex].comment;
-//   //   }
-//   // });
-//   imgFlex.appendChild(div);
-// }
-
-// function removeAllChildNodes(parent) {
-//   while (parent.firstChild) {
-//     parent.removeChild(parent.firstChild);
-//   }
-// }
+function backToMainPageClicked() {
+let k = document.querySelector(".image-grid .container-xxl .row");
+  while (k.firstChild) {
+    k.removeChild(k.lastChild);
+  }
+  let x = document.querySelector(".image-grid").style.display = "none";
+  let y = document.querySelector(".album-grid").style.display = "block";
+  document.querySelector("#selectedImg").remove();
+  document.querySelector(".selectedImg").remove();
+}
