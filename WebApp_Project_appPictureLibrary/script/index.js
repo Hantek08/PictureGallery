@@ -784,22 +784,6 @@ function editCommentEventListner(p, albumIndex, pictureIndex, p8) {
 // image gallery
 // init the state from the input
 
-function editCommentEventListner(btn, albumIndex, pictureIndex, com) {
-  btn.addEventListener("keypress", function (event) {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      const lib = JSON.parse(localStorage.getItem("pictureLibrary"));
-      lib.albums[albumIndex].pictures[pictureIndex].comment = com.textContent;
-      localStorage.setItem("pictureLibrary", JSON.stringify(lib));
-
-      com.innerHTML = lib.albums[albumIndex].pictures[pictureIndex].comment;
-    }
-  });
-}
-
-function toggleText(paragraph) {
-  paragraph.classList.toggle("truncate");
-}
 
 // function backToMainPageClicked(){
 //   let FlexTwoElements = document.querySelectorAll(".FlexItem-two");
