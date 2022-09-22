@@ -145,6 +145,17 @@ document.addEventListener("DOMContentLoaded", async () => {
           const btn = document.querySelector(".selectedImg");
 
         
+            const ratingDiv = document.querySelectorAll('#rating');
+          ratingDiv.forEach((star, clickedix) => {
+            star.addEventListener('click', function(e){
+              let action = 'add';
+              for (const span of this.children){
+                span.classList[action]('active');
+                if (span === e.target) action = 'remove';
+                console.log(clickedix);
+              }
+            })
+          })
 
           // const test = document.querySelector(".card-body");
           // for (let i = 0; i< test.length; i++){
@@ -584,7 +595,16 @@ function renderImageGallery(
   const p8 = document.createElement("p");
   p8.classList.add("card-text");
   p8.textContent = pictureComment;
-  p8.textContent = pictureComment.substring(0, 28) + "...";
+  // p8.textContent = pictureComment.substring(0, 28) + "...";
+  // p8.addEventListener("click", toggleText(p8));
+    toggleText(p8);
+
+  const btn = document.createElement("button");
+  btn.textContent = "click";
+  btn.onclick = function() {
+    toggleText(p8);
+  }
+  div6.appendChild(btn);
 
   div6.appendChild(h57);
   div6.appendChild(p8);
@@ -607,17 +627,11 @@ function renderImageGallery(
       starsDiv.appendChild(span);
     }
 
-       const ratingDiv = document.querySelectorAll('#rating');
-    ratingDiv.forEach((star, clickedix) => {
-      star.addEventListener('click', function(e){
-        let action = 'add';
-        for (const span of this.children){
-          span.classList[action]('active');
-          if (span === e.target) action = 'remove';
-          console.log(clickedix);
-        }
-      })
-    })
+    for (let i = 0; i < rating; i++){
+      let stars = document.querySelectorAll
+    }
+
+
     div6.appendChild(starsDiv);
 
 
