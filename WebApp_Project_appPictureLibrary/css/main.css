@@ -377,6 +377,21 @@ a:hover {
 .selectedImg.circular {
   border-radius: 50em !important;
 }
+#rating {
+  font-size: 0;
+}
+#rating span {
+  font-size: 40px;
+}
+#rating span::before {
+  content: "☆";
+}
+#rating span.active::before {
+  content: "★";
+}
+#rating span:hover {
+  cursor: pointer;
+}
 
 /*Truncate*/
 .truncate {

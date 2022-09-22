@@ -61,14 +61,6 @@ document.addEventListener("DOMContentLoaded", async () => {
               `${albums[albumIndex].path}/${pictures[pictureIndex].imgHiRes}`
             );
           }
-
-          // const starWrapper = document.querySelector(".card-body");
-          //   for (let i = 0; i < rating; i++){
-          //     let star = document.createElement("a");
-          //     star.dataset.rate = rating;
-          //     star.setAttribute("class", "stars-item");
-          //     starWrapper.appendChild(star);
-          //        }
         }
         albumGrid.style.display = "none";
 
@@ -140,6 +132,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         //
         //SHOW ALL IMAGES IN ALBUM SLIDESHOW
+
         if (albumIndex == 4) {
           const links = document.querySelectorAll(".card");
           const imgs = document.querySelectorAll("img");
@@ -151,10 +144,17 @@ document.addEventListener("DOMContentLoaded", async () => {
           const imgBtn = document.querySelector(".allImg");
           const btn = document.querySelector(".selectedImg");
 
-          let test = document.querySelectorAll(
-            ".card text-white custom-control custom-checkbox custom-control-label"
-          );
-          console.log(test);
+          const ratingDiv = document.querySelectorAll("#rating");
+          ratingDiv.forEach((star, clickedix) => {
+            star.addEventListener("click", function (e) {
+              let action = "add";
+              for (const span of this.children) {
+                span.classList[action]("active");
+                if (span === e.target) action = "remove";
+                console.log(clickedix);
+              }
+            });
+          });
 
           // const test = document.querySelector(".card-body");
           // for (let i = 0; i< test.length; i++){
@@ -341,23 +341,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                <h5 >${title}</h5>
               </div>`;
           }
-        }
-
-        function editCommentEventListner(p, albumIndex, pictureIndex, p8) {
-          console.log("p here ", p);
-
-          p.addEventListener("keypress", function (event) {
-            if (event.key === "Enter") {
-              event.preventDefault();
-              const lib = JSON.parse(localStorage.getItem("pictureLibrary"));
-              lib.albums[albumIndex].pictures[pictureIndex].comment =
-                p8.textContent;
-              localStorage.setItem("pictureLibrary", JSON.stringify(lib));
-
-              p8.innerHTML =
-                lib.albums[albumIndex].pictures[pictureIndex].comment;
-            }
-          });
         }
 
         // function ratingEventListener (albumIndex, pictureIndex, rating) {
@@ -559,22 +542,6 @@ function renderImageGallery(
   rating,
   hiResPath
 ) {
-  // const markupImage =
-  // `<div class="col-12 col-sm-6 col-md-4 col-lg-3 item" >
-  //     <div class="card text-white custom-control custom-checkbox custom-control-label" data-rating="${rating}" >
-  //       <input type="checkbox" class="check custom-control-input" id="${src}">
-  //       <label class="custom-control-label" for="${src}">
-  //         <img class="card-img-top" src="${src}"  data-title="${title}" data-caption="${pictureComment}" data-rating="${rating}">
-  //         <i class="fa fa-check-circle"></i>
-  //       </label>
-  //       <div class="card-body">
-  //         <h5 class="card-title">${title}</h5>
-  //         <p class="card-text">${pictureComment.substring(0, 28) + "..."}</p>
-  //       </div>
-  //     </div>
-  // </div>`;
-  // imageGrid.innerHTML += markupImage;
-
   const div1 = document.createElement("div");
   div1.classList.add("col-12", "col-sm-6", "col-md-4", "col-lg-3", "item");
 
@@ -643,12 +610,29 @@ function renderImageGallery(
   div6.appendChild(titleH5);
   div6.appendChild(p8);
 
-  for (let i = 0; i < rating; i++) {
-    const stars = document.createElement("a");
-    stars.className = "stars-item";
+  // const starsDiv = document.createElement("div");
+  // starsDiv.className = "stars";
 
-    div6.appendChild(stars);
+  // for (let i = 0; i < rating; i++) {
+  //   const stars = document.createElement("a");
+  //   stars.className = "stars-item";
+  //   starsDiv.appendChild(stars);
+  // }
+  // div6.appendChild(starsDiv);
+
+  const starsDiv = document.createElement("div");
+  starsDiv.setAttribute("id", "rating");
+
+  for (let i = 0; i < 5; i++) {
+    const span = document.createElement("span");
+    starsDiv.appendChild(span);
   }
+
+  for (let i = 0; i < rating; i++) {
+    let stars = document.querySelectorAll;
+  }
+
+  div6.appendChild(starsDiv);
 
   label3.appendChild(img4);
   label3.appendChild(check5);
@@ -659,19 +643,20 @@ function renderImageGallery(
 
   div1.appendChild(div2);
 
+  //  const starWrapper = document.querySelectorAll(".stars");
+  //    const stars = document.querySelectorAll(".stars-item");
+  //    console.log(starWrapper);
+  //    console.log(stars);
+  //    starWrapper.onclick = (e) => {
+  //      const elClass = e.target.classList;
+  //      if (!elClass.contains("active")) {
+  //        stars.forEach((star) => star.classList.remove("active"));
+  //        console.log(e.target.getAttribute("data-rate"));
+  //        elClass.add("active");
+  //      }
+  //    };
+
   imageGrid.appendChild(div1);
-
-  console.log(rating);
-
-  // const stars = document.querySelectorAll(".stars-item");
-  // starWrapper.onclick = (e) => {
-  //   const elClass = e.target.classList;
-  //   if (!elClass.contains("active")) {
-  //     stars.forEach((star) => star.classList.remove("active"));
-  //     console.log(e.target.getAttribute("data-rate"));
-  //     elClass.add("active");
-  //   }
-  // };
 
   // const div1 = document.createElement("div");
   // div1.classList.add("col-12", "col-sm-6", "col-md-4", "col-lg-3", "item");
@@ -799,18 +784,22 @@ function editCommentEventListner(p, albumIndex, pictureIndex, p8) {
 // image gallery
 // init the state from the input
 
-// function editCommentEventListner(btn, albumIndex, pictureIndex, com) {
-//   btn.addEventListener("keypress", function (event) {
-//     if (event.key === "Enter") {
-//       event.preventDefault();
-//       const lib = JSON.parse(localStorage.getItem("pictureLibrary"));
-//       lib.albums[albumIndex].pictures[pictureIndex].comment = com.textContent;
-//       localStorage.setItem("pictureLibrary", JSON.stringify(lib));
+function editCommentEventListner(btn, albumIndex, pictureIndex, com) {
+  btn.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      const lib = JSON.parse(localStorage.getItem("pictureLibrary"));
+      lib.albums[albumIndex].pictures[pictureIndex].comment = com.textContent;
+      localStorage.setItem("pictureLibrary", JSON.stringify(lib));
 
-//       com.innerHTML = lib.albums[albumIndex].pictures[pictureIndex].comment;
-//     }
-//   });
-// }
+      com.innerHTML = lib.albums[albumIndex].pictures[pictureIndex].comment;
+    }
+  });
+}
+
+function toggleText(paragraph) {
+  paragraph.classList.toggle("truncate");
+}
 
 // function backToMainPageClicked(){
 //   let FlexTwoElements = document.querySelectorAll(".FlexItem-two");
