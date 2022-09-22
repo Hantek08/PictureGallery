@@ -144,6 +144,8 @@ document.addEventListener("DOMContentLoaded", async () => {
           const imgBtn = document.querySelector(".allImg");
           const btn = document.querySelector(".selectedImg");
 
+        
+
           // const test = document.querySelector(".card-body");
           // for (let i = 0; i< test.length; i++){
           //   console.log(test[i].dataset.rating);
@@ -327,6 +329,8 @@ document.addEventListener("DOMContentLoaded", async () => {
           }
         }
 
+ 
+
         // function ratingEventListener (albumIndex, pictureIndex, rating) {
 
         // // RATING TEST!!
@@ -471,6 +475,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   //       };
   //     };
   //   });
+  
+   
 });
 // function backToMainPageClicked() {
 //   let FlexTwoElements = document.querySelectorAll(".Flex-two");
@@ -576,18 +582,44 @@ function renderImageGallery(
   h57.contentEditable = true;
 
   const p8 = document.createElement("p");
-  p8.className = "card-text";
+  p8.classList.add("card-text");
+  p8.textContent = pictureComment;
   p8.textContent = pictureComment.substring(0, 28) + "...";
 
   div6.appendChild(h57);
   div6.appendChild(p8);
+  
+  // const starsDiv = document.createElement("div");
+  // starsDiv.className = "stars";
 
-  for (let i = 0; i < rating; i++) {
-    const stars = document.createElement("a");
-    stars.className = "stars-item";
+  // for (let i = 0; i < rating; i++) {
+  //   const stars = document.createElement("a");
+  //   stars.className = "stars-item";
+  //   starsDiv.appendChild(stars);
+  // }
+  // div6.appendChild(starsDiv);
 
-    div6.appendChild(stars);
-  }
+  const starsDiv = document.createElement("div");
+  starsDiv.setAttribute("id", "rating");
+  
+    for (let i = 0; i < 5; i++){
+      const span = document.createElement("span");
+      starsDiv.appendChild(span);
+    }
+
+       const ratingDiv = document.querySelectorAll('#rating');
+    ratingDiv.forEach((star, clickedix) => {
+      star.addEventListener('click', function(e){
+        let action = 'add';
+        for (const span of this.children){
+          span.classList[action]('active');
+          if (span === e.target) action = 'remove';
+          console.log(clickedix);
+        }
+      })
+    })
+    div6.appendChild(starsDiv);
+
 
   label3.appendChild(img4);
   label3.appendChild(check5);
@@ -597,19 +629,22 @@ function renderImageGallery(
   div2.appendChild(div6);
 
   div1.appendChild(div2);
+  
+//  const starWrapper = document.querySelectorAll(".stars");
+//    const stars = document.querySelectorAll(".stars-item");
+//    console.log(starWrapper);
+//    console.log(stars);
+//    starWrapper.onclick = (e) => {
+//      const elClass = e.target.classList;
+//      if (!elClass.contains("active")) {
+//        stars.forEach((star) => star.classList.remove("active"));
+//        console.log(e.target.getAttribute("data-rate"));
+//        elClass.add("active");
+//      }
+//    };
 
   imageGrid.appendChild(div1);
 
-
-  // const stars = document.querySelectorAll(".stars-item");
-  // starWrapper.onclick = (e) => {
-  //   const elClass = e.target.classList;
-  //   if (!elClass.contains("active")) {
-  //     stars.forEach((star) => star.classList.remove("active"));
-  //     console.log(e.target.getAttribute("data-rate"));
-  //     elClass.add("active");
-  //   }
-  // };
 
   // const div1 = document.createElement("div");
   // div1.classList.add("col-12", "col-sm-6", "col-md-4", "col-lg-3", "item");
@@ -707,6 +742,10 @@ function editCommentEventListner(btn, albumIndex, pictureIndex, com) {
       com.innerHTML = lib.albums[albumIndex].pictures[pictureIndex].comment;
     }
   });
+}
+
+function toggleText (paragraph){
+  paragraph.classList.toggle("truncate");
 }
 
 // function backToMainPageClicked(){
