@@ -61,30 +61,28 @@ document.addEventListener("DOMContentLoaded", async () => {
               `${albums[albumIndex].path}/${pictures[pictureIndex].imgHiRes}`
             );
           }
-        document.querySelector(".image-grid").style.display = "flex";
-
+          document.querySelector(".image-grid").style.display = "flex";
         }
-                  
-       //SHOW ALL IMAGES IN ALBUM SLIDESHOW
-        
+
+        //SHOW ALL IMAGES IN ALBUM SLIDESHOW
+
         if (albumIndex == 4) {
           albumGrid.style.display = "none";
 
-const parentdiv = document.querySelector(".selectedImg").parentNode;
-const imgdiv = document.querySelector(".selectedImg");
-const newbtn = document.createElement("button");
-newbtn.setAttribute("class", "selectedImg circular");
-newbtn.textContent = "View selected image";
-parentdiv.insertBefore(newbtn, imgdiv);
+          const parentdiv = document.querySelector(".selectedImg").parentNode;
+          const imgdiv = document.querySelector(".selectedImg");
+          const newbtn = document.createElement("button");
+          newbtn.setAttribute("class", "selectedImg circular");
+          newbtn.textContent = "View selected image";
+          parentdiv.insertBefore(newbtn, imgdiv);
 
-const anotherbtn = document.createElement("button");
-anotherbtn.setAttribute("id", "selectedImg");
-parentdiv.insertBefore(anotherbtn, imgdiv);
-anotherbtn.textContent = "Back";
-anotherbtn.onclick = function() {
-  backToMainPageClicked();
-}
-
+          const backBtn = document.createElement("button");
+          backBtn.setAttribute("class", "backToAlbumBtn");
+          backBtn.textContent = "Back to Album";
+          parentdiv.insertBefore(backBtn, newbtn);
+          backBtn.onclick = function () {
+            backToMainPageClicked();
+          };
 
           const links = document.querySelectorAll(".card");
           const imgs = document.querySelectorAll("img");
@@ -96,8 +94,6 @@ anotherbtn.onclick = function() {
           const imgBtn = document.querySelector(".allImg");
           const btn = document.querySelector(".selectedImg");
 
-
-        
           const ratingDiv = document.querySelectorAll("#rating");
           ratingDiv.forEach((star, clickedix) => {
             star.addEventListener("click", function (e) {
@@ -105,22 +101,28 @@ anotherbtn.onclick = function() {
               let counter = 0;
               for (const span of this.children) {
                 span.classList[action]("active");
-                if (span.classList.value == "active"){
+                if (span.classList.value == "active") {
                   counter++;
                 }
-                
+
                 if (span === e.target) action = "remove";
               }
               console.log("albumid " + star.dataset.albumId);
               console.log("picid " + star.dataset.pictureId);
               console.log("clicked rating " + counter);
-                    const lib = JSON.parse(localStorage.getItem("pictureLibrary"));
-                    console.log("clicked images current rating " + lib.albums[star.dataset.albumId].pictures[star.dataset.pictureId].rating);
-                    lib.albums[star.dataset.albumId].pictures[star.dataset.pictureId].rating = counter;
-                   localStorage.setItem("pictureLibrary", JSON.stringify(lib));
-              });
+              const lib = JSON.parse(localStorage.getItem("pictureLibrary"));
+              console.log(
+                "clicked images current rating " +
+                  lib.albums[star.dataset.albumId].pictures[
+                    star.dataset.pictureId
+                  ].rating
+              );
+              lib.albums[star.dataset.albumId].pictures[
+                star.dataset.pictureId
+              ].rating = counter;
+              localStorage.setItem("pictureLibrary", JSON.stringify(lib));
+            });
           });
-
 
           let checkedItemsTrue = [];
           btn.addEventListener("click", function (e) {
@@ -129,9 +131,17 @@ anotherbtn.onclick = function() {
             let checkedItems = document.querySelectorAll(
               "input[type='checkbox']:checked"
             );
-
+            const lib = JSON.parse(localStorage.getItem("pictureLibrary"));
             for (const item of checkedItems) {
               if (item.checked == true) {
+                const latestImg = lib.albums[4].pictures.find(
+                  (i) => i.id == item.id
+                );
+                console.log("latesimg", latestImg);
+                console.log("albumIndex", albumIndex);
+                //           const lib = JSON.parse(localStorage.getItem("pictureLibrary"));
+                // lib.albums[albumIndex].pictures[pictureIndex].title = titleH5.textContent;
+                // localStorage.setItem("pictureLibrary", JSON.stringify(lib));
                 const obj = {
                   id: item.id,
                   hires: item.dataset.hires,
@@ -266,13 +276,10 @@ anotherbtn.onclick = function() {
               </div>`;
           }
         }
-
       });
     }
   }
 });
-
-
 
 const albumGrid = document.querySelector(".album-grid .container-xxl .row");
 const imageGrid = document.querySelector(".image-grid .container-xxl .row");
@@ -363,21 +370,27 @@ function renderImageGallery(
   titleH5.className = "card-title";
 
   titleH5.textContent = title;
-  titleH5.contentEditable = true;
-  // titleH5.dataset.index = albumPicIndex;
+  titleH5.contentEditable = false;
 
   const p8 = document.createElement("p");
+
   p8.classList.add("card-text");
   p8.textContent = pictureComment;
-  p8.contentEditable = true;
+  p8.contentEditable = false;
   toggleText(p8);
 
-  const btn = document.createElement("button");
-  btn.textContent = "click";
-  btn.onclick = function () {
+  const icon = document.createElement("i");
+  icon.classList.add("bi2", "bi-pencil-square");
+
+  //btn.appendChild(icon);
+
+  /*Toggle edit button*/
+  icon.onclick = function () {
+    p8.contentEditable = p8.contentEditable == "true" ? false : true;
+    titleH5.contentEditable = titleH5.contentEditable == "true" ? false : true;
     toggleText(p8);
   };
-  div6.appendChild(btn);
+  div6.appendChild(icon);
 
   div6.appendChild(titleH5);
   div6.appendChild(p8);
@@ -385,9 +398,9 @@ function renderImageGallery(
   const starsDiv = document.createElement("div");
   starsDiv.setAttribute("id", "rating");
 
-  for (let i = 0; i < 5; i++){
+  for (let i = 0; i < 5; i++) {
     const span = document.createElement("span");
-    if (i < rating){
+    if (i < rating) {
       span.className = "active";
     }
     starsDiv.appendChild(span);
@@ -406,7 +419,6 @@ function renderImageGallery(
 
   imageGrid.appendChild(div1);
 
-  
   const albIndex0 = albumPicIndex.split("_")[0];
   const picIndex1 = albumPicIndex.split("_")[1];
   starsDiv.dataset.albumId = albIndex0;
@@ -414,8 +426,6 @@ function renderImageGallery(
 
   editTitleEventListner(titleH5, albIndex0, picIndex1, titleH5);
   editCommentEventListner(p8, albIndex0, picIndex1, p8);
-
-
 }
 function toggleText(paragraph) {
   paragraph.classList.toggle("truncate");
@@ -436,13 +446,12 @@ function editTitleEventListner(tH5, albumIndex, pictureIndex, titleH5) {
 
 function editRatingEventListner(tH5, albumIndex, pictureIndex, titleH5) {
   tH5.addEventListener("click", function (event) {
-      event.preventDefault();
-      const lib = JSON.parse(localStorage.getItem("pictureLibrary"));
-      lib.albums[albumIndex].pictures[pictureIndex].rating = titleH5.innerHTML;
-      localStorage.setItem("pictureLibrary", JSON.stringify(lib));
+    event.preventDefault();
+    const lib = JSON.parse(localStorage.getItem("pictureLibrary"));
+    lib.albums[albumIndex].pictures[pictureIndex].rating = titleH5.innerHTML;
+    localStorage.setItem("pictureLibrary", JSON.stringify(lib));
 
-      titleH5.innerHTML = lib.albums[albumIndex].pictures[pictureIndex].rating;
-    
+    titleH5.innerHTML = lib.albums[albumIndex].pictures[pictureIndex].rating;
   });
 }
 
@@ -453,20 +462,17 @@ function editCommentEventListner(p, albumIndex, pictureIndex, p8) {
       const lib = JSON.parse(localStorage.getItem("pictureLibrary"));
       lib.albums[albumIndex].pictures[pictureIndex].comment = p8.textContent;
       localStorage.setItem("pictureLibrary", JSON.stringify(lib));
-
-      p8.innerHTML = lib.albums[albumIndex].pictures[pictureIndex].comment;
-
-      console.log("p8 here ", p8);
     }
   });
 }
 function backToMainPageClicked() {
-let k = document.querySelector(".image-grid .container-xxl .row");
+  let k = document.querySelector(".image-grid .container-xxl .row");
   while (k.firstChild) {
     k.removeChild(k.lastChild);
+    window.location.reload();
   }
-  let x = document.querySelector(".image-grid").style.display = "none";
-  let y = document.querySelector(".album-grid").style.display = "block";
+  let x = (document.querySelector(".image-grid").style.display = "none");
+  let y = (document.querySelector(".album-grid").style.display = "block");
   document.querySelector("#selectedImg").remove();
   document.querySelector(".selectedImg").remove();
 }

@@ -395,6 +395,96 @@ a:hover {
   border-radius: 100% 0 0 0;
 }
 
+#selectedImg {
+  position: relative;
+  left: 11px;
+  top: -2px;
+  border-radius: 3px;
+  margin: 8px;
+  color: #fff;
+  background-color: transparent;
+  display: inline-block;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+  font-family: sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+  -webkit-box-shadow: 0em -0.3rem 0em rgba(0, 0, 0, 0.1) inset;
+  -moz-box-shadow: 0em -0.3rem 0em rgba(0, 0, 0, 0.1) inset;
+  box-shadow: 0em -0.3rem 0em rgba(0, 0, 0, 0.1) inset;
+  position: relative;
+  margin-bottom: 30px;
+  border: none;
+  border-radius: 50em;
+}
+
+#selectedImg::before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: #b58a00;
+  transition: 0.3s ease-in;
+  z-index: -1;
+  top: 0;
+  right: 0;
+  border-radius: 50em;
+}
+
+#selectedImg:hover::before {
+  width: 15%;
+  border-radius: 100% 0 0 0;
+}
+
+.backToAlbumBtn {
+  padding: 1em 2.1em 1.1em;
+  border-radius: 3px;
+  margin: 8px;
+  color: #fff;
+  background-color: transparent;
+  display: inline-block;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+  font-family: sans-serif;
+  font-weight: 800;
+  font-size: 0.85em;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+  -webkit-box-shadow: 0em -0.3rem 0em rgba(0, 0, 0, 0.1) inset;
+  -moz-box-shadow: 0em -0.3rem 0em rgba(0, 0, 0, 0.1) inset;
+  box-shadow: 0em -0.3rem 0em rgba(0, 0, 0, 0.1) inset;
+  position: relative;
+  margin-bottom: 30px;
+  border: none;
+  border-radius: 50em;
+}
+
+.backToAlbumBtn::before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: #b58a00;
+  transition: 0.3s ease-in;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  border-radius: 50em;
+}
+
+.backToAlbumBtn:hover::before {
+  width: 15%;
+  border-radius: 0 100% 0 0;
+}
+
 /* RATING STYLES
       –––––––––––––––––––––––––––––––––––––––––––––––––– */
 #rating {
@@ -419,4 +509,14 @@ a:hover {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+}
+.bi2 {
+  position: inherit;
+  left: 258px;
+  bottom: 10px;
+}
+.bi-pencil-square::before {
+  content: "\F4CA";
+  color: #f6c342;
+  font-size: 20px;
 }
